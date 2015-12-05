@@ -7,7 +7,7 @@
 ?>
 
 <?php include('components/header.php'); ?>
-<!-- body now open  -->
+
 <?php include('components/footer.php'); ?>
 <?php
 

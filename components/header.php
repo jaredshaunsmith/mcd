@@ -21,4 +21,13 @@
 	<link rel="stylesheet" type="text/css" href="<?php echo $baseUrl ?>/assets/style/style.css" />
 </head>
 <body>
-<section class="main">
+<div class="main-menu">
+	<div class="logo"><img src="<?php echo $baseUrl; ?>/assets/images/logo.png"></div>
+	<ul class="menu-list">
+		<li class="menu-item">Super Narrow TREES</li>
+		<li class="menu-item">Richmond Spool Hub</li>
+		<li class="menu-item">Witchfinder General</li>
+		<li class="menu-item">The Monitor</li>
+	</ul>	
+</div>
+<section class="main burn bg-yellow" style="background-image: url('<?php echo $baseUrl; ?>/assets/images/witchfinder.png');">

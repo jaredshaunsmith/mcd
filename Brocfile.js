@@ -11,6 +11,13 @@ var sassDir = 'assets/sass';
 var scriptDir = 'assets/app';
 
 
+
+// Images
+var images = pickFiles('assets', {
+  srcDir: 'images',
+  destDir: 'assets/images'
+});
+
 /*
 	CSS
 */
@@ -37,4 +44,4 @@ var jsTree = browserify(scriptDir, {
 
 var appJS = mergeTrees([jsTree], {overwrite: true});
 
-module.exports = mergeTrees([appCSS, appJS]);
+module.exports = mergeTrees([images, appCSS, appJS]);

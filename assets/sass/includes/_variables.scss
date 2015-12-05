@@ -5,6 +5,15 @@ $baseline-lineheight: 25px;
 $line-height-factor: 1.7;
 $letter-spacing-factor: 0.0009;
 
+$yellow: #f7bf6f;
+
+.bg-yellow {
+	background-color: $yellow;
+}
+.t-yellow {
+	color: $yellow;
+}
+
 
 // responsive
 	// global breaks

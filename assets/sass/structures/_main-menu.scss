@@ -1,0 +1,32 @@
+.main-menu {
+	position: fixed;
+	left: 5vw;
+	top: 5vh;
+	width: 320px;
+	color: white;
+
+	.logo {
+		opacity: 0.2;
+		width: 100%;
+		img {
+			width: 100%;
+		}
+	}
+
+	.menu-list {
+		.menu-item {
+			background: black;
+			padding: 1rem;
+			background: black;
+			margin-top: 1px;
+	    padding: 3rem 2rem;
+	    font-size: 2.6rem;
+	    font-weight: 900;
+	    text-transform: uppercase;
+	    &:hover {
+	    	background: $yellow;
+	    	color: black;
+	    }
+		}
+	}
+}

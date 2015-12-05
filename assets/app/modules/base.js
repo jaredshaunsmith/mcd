@@ -27,6 +27,7 @@ base = (function($, _ , Intercom) {
         this.checkDimensions();
         this.utils();  
         this.menu();
+    };
 
     def.prototype = { 
 
@@ -68,10 +69,6 @@ base = (function($, _ , Intercom) {
 
             if(window.location.hash === '#contact') {
                 mcd.contact = true;
-            }
-
-            if(!mcd.isMobile) {
-                AutoSize(document.querySelectorAll('textarea'));
             }
 
             if(isiPad) {
