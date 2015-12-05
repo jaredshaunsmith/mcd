@@ -1,0 +1,26 @@
+0 info it worked if it ends with ok
+1 verbose cli [ '/Users/jaredsmith/.nvm/versions/node/v5.0.0/bin/node',
+1 verbose cli   '/Users/jaredsmith/.nvm/versions/node/v5.0.0/bin/npm',
+1 verbose cli   'run',
+1 verbose cli   'develo' ]
+2 info using npm@3.3.6
+3 info using node@v5.0.0
+4 verbose stack Error: missing script: develo
+4 verbose stack     at run (/Users/jaredsmith/.nvm/versions/node/v5.0.0/lib/node_modules/npm/lib/run-script.js:148:19)
+4 verbose stack     at /Users/jaredsmith/.nvm/versions/node/v5.0.0/lib/node_modules/npm/lib/run-script.js:58:5
+4 verbose stack     at /Users/jaredsmith/.nvm/versions/node/v5.0.0/lib/node_modules/npm/node_modules/read-package-json/read-json.js:345:5
+4 verbose stack     at checkBinReferences_ (/Users/jaredsmith/.nvm/versions/node/v5.0.0/lib/node_modules/npm/node_modules/read-package-json/read-json.js:309:45)
+4 verbose stack     at final (/Users/jaredsmith/.nvm/versions/node/v5.0.0/lib/node_modules/npm/node_modules/read-package-json/read-json.js:343:3)
+4 verbose stack     at then (/Users/jaredsmith/.nvm/versions/node/v5.0.0/lib/node_modules/npm/node_modules/read-package-json/read-json.js:113:5)
+4 verbose stack     at ReadFileContext.<anonymous> (/Users/jaredsmith/.nvm/versions/node/v5.0.0/lib/node_modules/npm/node_modules/read-package-json/read-json.js:284:20)
+4 verbose stack     at ReadFileContext.callback (/Users/jaredsmith/.nvm/versions/node/v5.0.0/lib/node_modules/npm/node_modules/graceful-fs/graceful-fs.js:76:16)
+4 verbose stack     at FSReqWrap.readFileAfterOpen [as oncomplete] (fs.js:324:13)
+5 verbose cwd /Users/jaredsmith/Sites/github/mullins-website
+6 error Darwin 15.0.0
+7 error argv "/Users/jaredsmith/.nvm/versions/node/v5.0.0/bin/node" "/Users/jaredsmith/.nvm/versions/node/v5.0.0/bin/npm" "run" "develo"
+8 error node v5.0.0
+9 error npm  v3.3.6
+10 error missing script: develo
+11 error If you need help, you may report this error at:
+11 error     <https://github.com/npm/npm/issues>
+12 verbose exit [ 1, true ]

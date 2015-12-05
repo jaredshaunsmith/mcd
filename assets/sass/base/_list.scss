@@ -1,0 +1,14 @@
+.list {
+	@extend .f-med;
+}
+
+.list-item {
+	margin-top: 0;
+	margin-bottom: 0;
+}
+
+
+@if $EXTENDBASE {
+	ul { @extend .list; }
+	li { @extend .list-item; }
+}

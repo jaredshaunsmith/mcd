@@ -1,0 +1,19 @@
+//font families
+$f-mono: 'Mono';
+
+.f-mono {
+	font-family: 'Mono';
+}
+.f-reg {
+	font-family: "prestige-elite-std",monospace;
+font-style: normal;
+font-weight: 400;
+}
+.f-med {
+	@extend .f-reg;
+}
+.f-bold {
+	font-family: "prestige-elite-std",monospace;
+font-style: normal;
+font-weight: 700;
+}

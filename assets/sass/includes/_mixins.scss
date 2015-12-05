@@ -1,0 +1,54 @@
+.clearfix {
+  *-zoom: 1;
+  overflow: hidden;
+}
+
+
+.caps {
+	text-transform: uppercase;
+}
+
+@mixin type-size ($size) {
+	font-size: $size + rem;
+	line-height: $size * $line-height-factor + rem;
+	letter-spacing: $size * $letter-spacing-factor + rem;
+}
+
+// respond-to
+$media-style: max-width;
+@mixin respond-to($breakpoint) {
+  @media only screen and ($media-style: $breakpoint + px) { @content; }
+}
+
+.bg-standard-centered {
+	background-size: contain;
+  background-position: 100%;
+  background-repeat: no-repeat;
+}
+.bg-standard-cover {
+	background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+.bg-small-centered {
+	background-size: auto 66.5%;
+	background-position: center;
+	background-repeat: no-repeat;
+}
+
+.centered {
+	align-self: center;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.spaced-top {
+	margin-top: 3rem;
+}
+.spaced-bottom {
+	margin-bottom: 3rem;
+}
+
+.relative {
+	position: relative !important;
+}

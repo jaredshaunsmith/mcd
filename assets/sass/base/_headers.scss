@@ -1,0 +1,60 @@
+h1, .header-main {
+	@extend .f-bold;
+
+	font-size: 10rem;
+	text-transform: uppercase;
+}
+
+h2, .header-title {
+	@extend .f-bold;
+
+	font-size: 6rem;
+	line-height: 7rem;
+}
+
+h3, .header-title-medium {
+	@extend .f-med;
+
+	font-size: 6rem;
+	line-height: 7rem;
+	@include tablet() {
+		font-size: 5.5rem;
+		line-height: 6.7rem;
+	}
+
+	&.bold {
+		@extend .f-bold;
+		@include tablet() {
+			font-size: 5.5rem;
+			line-height: 6.7rem;
+		}
+	}
+}
+
+h4, .header-title-small {
+	@extend .f-reg;
+
+	font-size: 6rem;
+	line-height: 7rem;
+	@include tablet() {
+		font-size: 5.5rem;
+		line-height: 6.7rem;
+	}
+}
+
+h5, .header-sub {
+	@extend .f-bold;
+
+	font-size: 3rem;
+	line-height: 4rem;
+	text-transform: uppercase;
+}
+
+
+// specialized headers
+.header-article {
+	@extend .f-bold;
+
+	font-size: 3rem;
+	line-height: 4.4rem;
+}

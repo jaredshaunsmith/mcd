@@ -1,0 +1,29 @@
+// reset it all
+@import "includes/reset";
+
+// includes (variables and macros) 
+@import "includes/variables";
+@import "includes/mixins";
+@import "includes/fonts";
+@import "includes/type";
+
+// base elements
+@import "base/base";
+
+// typography
+@import "base/headers";
+@import "base/list";
+@import "base/paragraph";
+@import "base/link";
+// ui
+@import "base/button";
+@import "base/input";
+@import "base/icon";
+// base layout 
+@import "base/hr";
+@import "base/blockquote";
+ 
+// layout grid
+@import "layout/slice"; 
+@import "layout/wrapper";
+@import "layout/row";

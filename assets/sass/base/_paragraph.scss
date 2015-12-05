@@ -1,0 +1,16 @@
+.paragraph, body {
+	@extend .f-reg;
+
+	font-size: 3rem;
+	line-height: 4rem;
+
+	@include tablet() {
+		font-size: 3.2rem;
+		line-height: 4.2rem;
+	}
+}
+
+
+@if $EXTENDBASE {
+	p { @extend .paragraph; }
+}

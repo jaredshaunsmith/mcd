@@ -1,0 +1,60 @@
+// sets whether to extend standard modules
+// to their logical base elements 
+$EXTENDBASE: true;
+
+* { 
+    box-sizing: border-box;
+    margin-bottom: 0px;
+}
+
+html {
+	font-size: $baseline;
+    height: 100%;
+    width: 100%;
+}
+
+body {
+    @extend .paragraph;
+    
+    text-transform: none;
+    text-decoration: none;
+    text-align: left;
+    font-size: 15px;
+
+    word-wrap: normal;
+
+    height: 100%;
+    width: 100%;
+    overflow-x: hidden;
+
+    @extend .f-reg;
+
+
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-size-adjust: 100%;
+    -webkit-tap-highlight-color: transparent;
+
+    &.fixed {
+        position: fixed;
+        overflow: hidden;
+    }
+}
+.main {
+    clear: both;
+    width: 100vw;
+    overflow: hidden
+}
+
+
+@include tablet-l() {
+    html { font-size: 7.5px; }
+}
+
+@include tablet() {
+    html { font-size: 6px; }
+}
+
+@include phone() {
+    html { font-size: 5px; }
+}

@@ -1,0 +1,30 @@
+.row {
+	width: 100vw;
+	min-height: 50vw;
+	margin-bottom: 0;
+	display: flex;
+	// align-content: center;
+	&.no-flex {
+		display: block;
+	}
+	&.small {
+		min-height: 60vh;
+	}
+	&.taller {
+		min-height: 60vw;
+	}
+	&.padded {
+		padding-top: 12rem;
+		padding-bottom: 12rem;
+	}
+}
+
+@include tablet() {
+	.row, .row.small, .row.taller, .row.padded {
+		min-height: 30vh;
+		padding: 0;
+		&.no-mobile-pad {
+			padding: 0 !important;
+		}
+	}
+}

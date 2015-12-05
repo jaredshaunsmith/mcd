@@ -1,0 +1,14 @@
+.button {
+	
+}
+
+// buton alt
+.button-alt {
+	
+}
+
+@if $EXTENDBASE {
+	input[type="submit"],
+	input[type="button"],
+	button { @extend .button; }
+}
