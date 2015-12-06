@@ -32,6 +32,9 @@ var Menu = (function($, _) {
                 $(this).on('click', function(e) {
                     e.preventDefault();
                     self.scrollMe($(this).attr('data-top'));
+                    setTimeout(function(context) {
+                        self.setToActive($(context).parent());
+                    }, 350, this);
                 });
             });
 
@@ -46,49 +49,57 @@ var Menu = (function($, _) {
         },
 
         sticks : function() {
+            var self = this;
             var s = $('.scroller'),
                 menuTop = $('.main-menu').offset().top,
                 top = $(window).outerHeight(true) - menuTop,
                 left = $('.product').offset().left,
-                h = s.outerHeight(true),
-                cEl = $('.product'),
-                hitH = cEl.outerHeight(true),
-                hitTop = cEl.offset().top,
-                w, hitValue, e;
+                w, o, e;
 
             $('.scroller').on('scroll', function() {
                 w = s.scrollTop();
                 e = $('.content').offset().top - menuTop;
 
                 if(e <= 0) {
-                    // console.log('start sticking');
                     $('.product').each(function() {
                         var o = $(this).offset().top - menuTop;
-                        console.log(o);
+                        var menuItem = $('a[href="#' + $(this).attr('id') + '"]').parent();
                         if(o <= 0) {
+
                             $('.product-name', this).css({'position': 'fixed', 'top': menuTop, 'left': left, 'background': 'white', 'width' : $(this).outerWidth(true), 'padding': '2rem'});
                             $('.product-description', this).css('margin-top', $('.product-name', this).outerHeight());
+                            if(!menuItem.hasClass('is-active')) {
+                                self.setToActive(menuItem);
+                            }
                         } else {
                             $('.product-name', this).css({'position': 'relative', 'top': 'auto', 'left': 'auto', 'width':'auto','padding':'0px'});
                             $('.product-description', this).css('margin-top', 'auto');
                         }
                     })
                 } else {
-                    // console.log('stop sticking');
+                    $('.menu-list .after').css('opacity', 0);
+                    self.setToActive(false);
                     $('.product-name', $('.product').first()).css({'position': 'relative', 'top': 'auto', 'left': 'auto', 'width':'auto','padding':'0px'});
                     $('.product-description', $('.product').first()).css('margin-top', 'auto');
                 }
-
-                // console.log(w, e, top)
-
-                // // character containers
-                // if(w >= top) {
-                //     console.log('stuck');
-                // } else {
-                //     console.log('unstuck');
-                //     // $('.scroller').css({'padding-top' : '0px'});
-                // }
             });
+        },
+
+        setToActive : function(which) {
+            // if(which == false) {
+            //     $('.menu-list .after').fadeOut();
+            // }
+            $('.menu-item').each(function() {
+                $(this).removeClass('is-active');
+
+            });
+            if(which != false) {
+                which.addClass('is-active');
+                $('.menu-list .after').css({'top': which.position().top, 'opacity': '1', 'height': which.height()});
+                // setTimeout(function() {
+                //     $('.menu-list .after').css({});
+                // }, 500)
+            }
         }
 
     };

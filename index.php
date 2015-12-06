@@ -10,7 +10,7 @@
 
 <?php
 
-$menu = '<div class="main-menu"><ul class="menu-list"><li class="menu-item label">Products</li>';
+$menu = '<div class="main-menu"><ul class="menu-list"><li class="after"></li><li class="menu-item label">Products</li>';
 
 
 require('bigcartel.class.php');
