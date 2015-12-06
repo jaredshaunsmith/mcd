@@ -1,32 +1,62 @@
 .main-menu {
 	position: fixed;
 	left: 5vw;
-	top: 5vh;
-	width: 320px;
+	top: 10vh;
+	width: 20vw;
 	color: white;
 
-	.logo {
-		opacity: 0.2;
-		width: 100%;
-		img {
-			width: 100%;
-		}
-	}
-
 	.menu-list {
+		// transform: scale(0.9);
+    left: 0px;
+    position: relative;
+    transition: all 0.3s ease-in;
+    &:hover {
+    	// transform: scale(0.94);
+    }
 		.menu-item {
-			background: black;
-			padding: 1rem;
-			background: black;
-			margin-top: 1px;
-	    padding: 3rem 2rem;
-	    font-size: 2.6rem;
-	    font-weight: 900;
-	    text-transform: uppercase;
-	    &:hover {
-	    	background: $yellow;
-	    	color: black;
+			&:first-child {
+				a, &.label {
+					margin-top: 0px !important;
+				}
+			}
+
+			&.label {
+				background: $yellow !important;
+				color: black !important;
+			}
+	    a, &.label {
+	    	background: black;
+	    	display: block;
+				padding: 1rem;
+				background: black;
+				margin-top: 0.25rem;
+		    padding: 3rem 2rem;
+		    font-size: 2.6rem;
+		    font-weight: 900;
+		    text-transform: uppercase;
+		    transition: all 0.1s ease;
+	    	color: white;
+	    	transition: all 0.2s ease;
+	    }
+	    &:hover, &.is-active {
+	    	a {
+	    		background: $yellow;
+	    		color: black;
+	    	}
 	    }
 		}
 	}
 }
+
+.logo {
+		position: absolute;
+    right: 2rem;
+    opacity: 0.2;
+    height: 9vh;
+    top: 1vh;
+    padding-bottom: 2rem;
+		img {
+			height: 100%;
+			width: auto
+		}
+	}

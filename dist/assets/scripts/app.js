@@ -6,7 +6,7 @@ var $ = require('jQuery'),
 $(function() {
 	'use strict';
 
-	window.hwe = (function() {
+	window.mcd = (function() {
 		'use strict';
 
 		var defaults = [];
@@ -15,35 +15,30 @@ $(function() {
 		};
 	})();
 
-	hwe.base = new base(window.hwe); 
+	mcd.base = new base(window.mcd); 
 });
 },{"./modules/base":"/Users/jaredsmith/Sites/github/mullins-website/assets/app/modules/base.js","jQuery":"/Users/jaredsmith/Sites/github/mullins-website/node_modules/jQuery/dist/jquery.js"}],"/Users/jaredsmith/Sites/github/mullins-website/assets/app/modules/base.js":[function(require,module,exports){
 var $ = require('jQuery'),
     _ = require('Underscore');
 
 var Intercom = require('./lib/intercom.js');
-var Prism = require('./lib/prism.js');
-var AutoSize = require('./lib/autosize.min.js');
-var Overlay = require('./overlay.js');
 var Menu = require('./menu.js');
-var TeamMembers = require('./team.js');
-var Form = require('./form.js');
 
 
 // base functions
 base = (function($, _ , Intercom) {
     'use strict';
 
-    var def = function(hwe) {
-        var hwe = hwe;
-        hwe.options = {};
+    var def = function(mcd) {
+        var mcd = mcd;
+        mcd.options = {};
 
-        hwe.intercom = {};
-        Intercom.installOn(hwe.intercom);
+        mcd.intercom = {};
+        Intercom.installOn(mcd.intercom);
 
         // setup touch for mobile
-        hwe.options.uAgent = navigator.userAgent;
-        hwe.options.interaction = hwe.options.uAgent.match(/(iPad|iPhone|iPod)/g) ? 'touchstart' : 'click';
+        mcd.options.uAgent = navigator.userAgent;
+        mcd.options.interaction = mcd.options.uAgent.match(/(iPad|iPhone|iPod)/g) ? 'touchstart' : 'click';
 
         init.call(this);
     };
@@ -52,26 +47,20 @@ base = (function($, _ , Intercom) {
         this.checkDimensions();
         this.utils();  
         this.menu();
-        this.team();
-        this.svg();
-        this.form();
-        this.overlay();
-        this.videos();
-        this.rows();
     };
 
     def.prototype = { 
 
         checkDimensions: function() {
-            hwe.isDesktop = $(window).width() >= 968;
-            hwe.isMobile = $(window).width() <= 967;
+            mcd.isDesktop = $(window).width() >= 968;
+            mcd.isMobile = $(window).width() <= 967;
             
-            if(hwe.isDesktop) {
-                hwe.intercom.broadcast('desktop', this);
+            if(mcd.isDesktop) {
+                mcd.intercom.broadcast('desktop', this);
             }
 
-            if(hwe.isMobile) {
-                hwe.intercom.broadcast('mobile', this);
+            if(mcd.isMobile) {
+                mcd.intercom.broadcast('mobile', this);
             } 
         },
 
@@ -99,11 +88,7 @@ base = (function($, _ , Intercom) {
             }
 
             if(window.location.hash === '#contact') {
-                hwe.contact = true;
-            }
-
-            if(!hwe.isMobile) {
-                AutoSize(document.querySelectorAll('textarea'));
+                mcd.contact = true;
             }
 
             if(isiPad) {
@@ -116,58 +101,8 @@ base = (function($, _ , Intercom) {
             
         },
 
-        overlay: function() {
-            new Overlay($('.js-overlay'));
-        },
-
         menu: function() {
             new Menu();
-        },
-
-        team: function() {
-            if($('.team-wrap').length > 0) {
-                new TeamMembers();
-            }
-        },
-
-        svg: function() {
-            $('.link-arrow').each(function() {
-                $(this).wrap('<div class="link-wrapper"></div>').parent().append('<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"viewBox="0 0 42 22.5" enable-background="new 0 0 42 22.5" xml:space="preserve"><g><line fill="none" stroke="#000000" stroke-width="2" x1="2.8" y1="11.1" x2="38.8" y2="11.1"/><polyline fill="none" stroke="#000000" stroke-width="2" points="30.5,19.5 39,11.1 30.5,2.6  "/></g></svg>');
-            });
-        },
-
-        form : function() {
-            new Form();
-        },
-        
-        videos: function() {
-            $('video').each(function() {
-                $(this).get(0).muted = true;
-            });
-        },
-
-        rows: function() {
-            var self = this;
-            if(!hwe.isMobile) {
-                if ($('.js-gallery').length > 0) {
-                    $('.js-gallery').each(function() {
-                        var base = 50,
-                            amount = $('.slice-50', this).length,
-                            unit = 2,
-                            rows = Math.ceil(amount / unit),
-                            finalVal = (rows * base) + 'vw';
-                        
-                        $(this).css('min-height', finalVal);
-                    })
-
-                    hwe.intercom.listen('mobile', function() {
-                        $('.js-gallery'.removeAttr('style'));
-                    });
-                    hwe.intercom.listen('desktop', function() {
-                        self.rows();
-                    });
-                }
-            }
         }
 
     };
@@ -177,143 +112,7 @@ base = (function($, _ , Intercom) {
 }).call(this, $, _, Intercom);
 
 module.exports = base; 
-},{"./form.js":"/Users/jaredsmith/Sites/github/mullins-website/assets/app/modules/form.js","./lib/autosize.min.js":"/Users/jaredsmith/Sites/github/mullins-website/assets/app/modules/lib/autosize.min.js","./lib/intercom.js":"/Users/jaredsmith/Sites/github/mullins-website/assets/app/modules/lib/intercom.js","./lib/prism.js":"/Users/jaredsmith/Sites/github/mullins-website/assets/app/modules/lib/prism.js","./menu.js":"/Users/jaredsmith/Sites/github/mullins-website/assets/app/modules/menu.js","./overlay.js":"/Users/jaredsmith/Sites/github/mullins-website/assets/app/modules/overlay.js","./team.js":"/Users/jaredsmith/Sites/github/mullins-website/assets/app/modules/team.js","Underscore":"/Users/jaredsmith/Sites/github/mullins-website/node_modules/Underscore/underscore.js","jQuery":"/Users/jaredsmith/Sites/github/mullins-website/node_modules/jQuery/dist/jquery.js"}],"/Users/jaredsmith/Sites/github/mullins-website/assets/app/modules/form.js":[function(require,module,exports){
-var jQuery = require('jquery');
-var $ = require('jQuery');
-var _ = require('Underscore');
-var validator = require('validator');
-
-
-var validators = {
-    // email: {
-    //     func: validator.isEmail,
-    //     message: 'Enter a valid email.'
-    // },
-    required: {
-        func: function(val) {
-            return val.length > 0;
-        },
-        message: 'Required field.'
-    },
-    isWhiteSpace: {
-        func: function(val) {
-            return /^\s+$/.test(val);
-        },
-        message: 'Cannot be left blank.'
-    }
-};
-
-var Form = (function($, _) {
-    'use strict';
-
-    var def = function(el) {
-        this.$els = $('input[type="text"], input[type="email"], textarea');
-        this.$submitter = $('.form-submit');
-
-        this.vlds = [];
-
-        this.states = {
-            active : 'is-valid',
-            error : 'is-error'
-        };
-
-        init.call(this);
-    };
-
-    var init = function() {
-        this.bind();
-    };
-
-    def.prototype = {
-        bind : function() {
-            var self = this;
-
-            hwe.intercom.listen('reset-forms', function() {
-                self.$els.each(function() {
-                    $(this).parent().removeClass('is-error is-valid');
-                });
-                self.setSubmitOff();
-            });
-            this.$els.each(function() {
-                if(!$(this).hasClass('no-validate')) {
-                    // console.log('it doesnt', $(this));
-                    $(this).parent().append('<div class="validator-message"></div>');
-                    self.vlds.push($(this));
-
-                    $(this).on('focusout', function(e) {
-                        self.runValidator($(this));
-                    });
-                }
-            });
-
-            this.$submitter.parent().addClass('is-unavailable');
-        },
-        runValidator : function($el) {
-            var self = this;
-            // if($el.val() != '') {
-
-                var isValid = validators['required']['func']($el.val());
-                var isWhite = validators['isWhiteSpace']['func']($el.val());
-        
-                if(!isValid) {
-                    $('.validator-message', $el.parent()).html(validators['required'].message).addClass('is-active');
-                    $el.parent().addClass('is-error');
-                    $el.parent().removeClass('is-valid');
-                } else if(isWhite) {
-                    $('.validator-message', $el.parent()).html(validators['isWhiteSpace'].message).addClass('is-active');
-                    $el.parent().addClass('is-error');
-                    $el.parent().removeClass('is-valid');
-                } else {
-                    $('.validator-message', $el.parent()).removeClass('is-active');
-                    $el.parent().addClass('is-valid');
-                    $el.parent().removeClass('is-error');
-
-                }
-
-                this.checkAll();
-
-                return this;
-            // }
-        },
-        checkAll : function() {
-            var self = this;
-            var i = 0;
-            _.each(this.vlds, function(item) {
-                if($(item).parent().hasClass('is-valid')) {
-                    i++;
-                }
-            });
-            if(i === this.vlds.length) {
-                this.setSubmitOn();
-            }
-        },
-        setSubmitOn : function() {
-            this.$submitter.parent().removeClass('is-unavailable');
-            this.$submitter.addClass('is-available').parent().addClass('is-available');
-            this.$submitter.on('click', function() {
-                $('input[type="submit"]').trigger('click');
-            });
-        },
-
-        setSubmitOff : function() {
-            this.$submitter.parent().addClass('is-unavailable');
-            this.$submitter.removeClass('is-available').parent().removeClass('is-available');
-            this.$submitter.off('click');
-        }
-    };
-
-    return def;
-})(jQuery, _);
-
-module.exports = Form;
-},{"Underscore":"/Users/jaredsmith/Sites/github/mullins-website/node_modules/Underscore/underscore.js","jQuery":"/Users/jaredsmith/Sites/github/mullins-website/node_modules/jQuery/dist/jquery.js","jquery":"/Users/jaredsmith/Sites/github/mullins-website/node_modules/jquery/dist/jquery.js","validator":"/Users/jaredsmith/Sites/github/mullins-website/node_modules/validator/validator.js"}],"/Users/jaredsmith/Sites/github/mullins-website/assets/app/modules/lib/autosize.min.js":[function(require,module,exports){
-/*!
-	Autosize 3.0.14
-	license: MIT
-	http://www.jacklmoore.com/autosize
-*/
-!function(e,t){if("function"==typeof define&&define.amd)define(["exports","module"],t);else if("undefined"!=typeof exports&&"undefined"!=typeof module)t(exports,module);else{var n={exports:{}};t(n.exports,n),e.autosize=n.exports}}(this,function(e,t){"use strict";function n(e){function t(){var t=window.getComputedStyle(e,null);c=t.overflowY,"vertical"===t.resize?e.style.resize="none":"both"===t.resize&&(e.style.resize="horizontal"),f="content-box"===t.boxSizing?-(parseFloat(t.paddingTop)+parseFloat(t.paddingBottom)):parseFloat(t.borderTopWidth)+parseFloat(t.borderBottomWidth),isNaN(f)&&(f=0),i()}function n(t){var n=e.style.width;e.style.width="0px",e.offsetWidth,e.style.width=n,c=t,u&&(e.style.overflowY=t),o()}function o(){var t=window.pageYOffset,n=document.body.scrollTop,o=e.style.height;e.style.height="auto";var i=e.scrollHeight+f;return 0===e.scrollHeight?void(e.style.height=o):(e.style.height=i+"px",v=e.clientWidth,document.documentElement.scrollTop=t,void(document.body.scrollTop=n))}function i(){var t=e.style.height;o();var i=window.getComputedStyle(e,null);if(i.height!==e.style.height?"visible"!==c&&n("visible"):"hidden"!==c&&n("hidden"),t!==e.style.height){var r=document.createEvent("Event");r.initEvent("autosize:resized",!0,!1),e.dispatchEvent(r)}}var d=void 0===arguments[1]?{}:arguments[1],s=d.setOverflowX,l=void 0===s?!0:s,a=d.setOverflowY,u=void 0===a?!0:a;if(e&&e.nodeName&&"TEXTAREA"===e.nodeName&&!r.has(e)){var f=null,c=null,v=e.clientWidth,p=function(){e.clientWidth!==v&&i()},h=function(t){window.removeEventListener("resize",p,!1),e.removeEventListener("input",i,!1),e.removeEventListener("keyup",i,!1),e.removeEventListener("autosize:destroy",h,!1),e.removeEventListener("autosize:update",i,!1),r["delete"](e),Object.keys(t).forEach(function(n){e.style[n]=t[n]})}.bind(e,{height:e.style.height,resize:e.style.resize,overflowY:e.style.overflowY,overflowX:e.style.overflowX,wordWrap:e.style.wordWrap});e.addEventListener("autosize:destroy",h,!1),"onpropertychange"in e&&"oninput"in e&&e.addEventListener("keyup",i,!1),window.addEventListener("resize",p,!1),e.addEventListener("input",i,!1),e.addEventListener("autosize:update",i,!1),r.add(e),l&&(e.style.overflowX="hidden",e.style.wordWrap="break-word"),t()}}function o(e){if(e&&e.nodeName&&"TEXTAREA"===e.nodeName){var t=document.createEvent("Event");t.initEvent("autosize:destroy",!0,!1),e.dispatchEvent(t)}}function i(e){if(e&&e.nodeName&&"TEXTAREA"===e.nodeName){var t=document.createEvent("Event");t.initEvent("autosize:update",!0,!1),e.dispatchEvent(t)}}var r="function"==typeof Set?new Set:function(){var e=[];return{has:function(t){return Boolean(e.indexOf(t)>-1)},add:function(t){e.push(t)},"delete":function(t){e.splice(e.indexOf(t),1)}}}(),d=null;"undefined"==typeof window||"function"!=typeof window.getComputedStyle?(d=function(e){return e},d.destroy=function(e){return e},d.update=function(e){return e}):(d=function(e,t){return e&&Array.prototype.forEach.call(e.length?e:[e],function(e){return n(e,t)}),e},d.destroy=function(e){return e&&Array.prototype.forEach.call(e.length?e:[e],o),e},d.update=function(e){return e&&Array.prototype.forEach.call(e.length?e:[e],i),e}),t.exports=d});
-},{}],"/Users/jaredsmith/Sites/github/mullins-website/assets/app/modules/lib/intercom.js":[function(require,module,exports){
+},{"./lib/intercom.js":"/Users/jaredsmith/Sites/github/mullins-website/assets/app/modules/lib/intercom.js","./menu.js":"/Users/jaredsmith/Sites/github/mullins-website/assets/app/modules/menu.js","Underscore":"/Users/jaredsmith/Sites/github/mullins-website/node_modules/Underscore/underscore.js","jQuery":"/Users/jaredsmith/Sites/github/mullins-website/node_modules/jQuery/dist/jquery.js"}],"/Users/jaredsmith/Sites/github/mullins-website/assets/app/modules/lib/intercom.js":[function(require,module,exports){
 // ///////////////////////////////////////////////////////////////////////////
 // Intercom - JavaScript mediator
 // Jared Smith - 2014
@@ -361,22 +160,6 @@ var Intercom = (function() {
 })();
 
 module.exports = Intercom;
-},{}],"/Users/jaredsmith/Sites/github/mullins-website/assets/app/modules/lib/prism.js":[function(require,module,exports){
-(function (global){
-/* http://prismjs.com/download.html?themes=prism&languages=markup+css+clike+javascript+c+csharp+cpp+objectivec+swift&plugins=line-highlight */
-var _self="undefined"!=typeof window?window:"undefined"!=typeof WorkerGlobalScope&&self instanceof WorkerGlobalScope?self:{},Prism=function(){var e=/\blang(?:uage)?-(?!\*)(\w+)\b/i,t=_self.Prism={util:{encode:function(e){return e instanceof n?new n(e.type,t.util.encode(e.content),e.alias):"Array"===t.util.type(e)?e.map(t.util.encode):e.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/\u00a0/g," ")},type:function(e){return Object.prototype.toString.call(e).match(/\[object (\w+)\]/)[1]},clone:function(e){var n=t.util.type(e);switch(n){case"Object":var a={};for(var r in e)e.hasOwnProperty(r)&&(a[r]=t.util.clone(e[r]));return a;case"Array":return e.map&&e.map(function(e){return t.util.clone(e)})}return e}},languages:{extend:function(e,n){var a=t.util.clone(t.languages[e]);for(var r in n)a[r]=n[r];return a},insertBefore:function(e,n,a,r){r=r||t.languages;var l=r[e];if(2==arguments.length){a=arguments[1];for(var i in a)a.hasOwnProperty(i)&&(l[i]=a[i]);return l}var o={};for(var s in l)if(l.hasOwnProperty(s)){if(s==n)for(var i in a)a.hasOwnProperty(i)&&(o[i]=a[i]);o[s]=l[s]}return t.languages.DFS(t.languages,function(t,n){n===r[e]&&t!=e&&(this[t]=o)}),r[e]=o},DFS:function(e,n,a){for(var r in e)e.hasOwnProperty(r)&&(n.call(e,r,e[r],a||r),"Object"===t.util.type(e[r])?t.languages.DFS(e[r],n):"Array"===t.util.type(e[r])&&t.languages.DFS(e[r],n,r))}},plugins:{},highlightAll:function(e,n){for(var a,r=document.querySelectorAll('code[class*="language-"], [class*="language-"] code, code[class*="lang-"], [class*="lang-"] code'),l=0;a=r[l++];)t.highlightElement(a,e===!0,n)},highlightElement:function(n,a,r){for(var l,i,o=n;o&&!e.test(o.className);)o=o.parentNode;o&&(l=(o.className.match(e)||[,""])[1],i=t.languages[l]),n.className=n.className.replace(e,"").replace(/\s+/g," ")+" language-"+l,o=n.parentNode,/pre/i.test(o.nodeName)&&(o.className=o.className.replace(e,"").replace(/\s+/g," ")+" language-"+l);var s=n.textContent,u={element:n,language:l,grammar:i,code:s};if(!s||!i)return t.hooks.run("complete",u),void 0;if(t.hooks.run("before-highlight",u),a&&_self.Worker){var g=new Worker(t.filename);g.onmessage=function(e){u.highlightedCode=e.data,t.hooks.run("before-insert",u),u.element.innerHTML=u.highlightedCode,r&&r.call(u.element),t.hooks.run("after-highlight",u),t.hooks.run("complete",u)},g.postMessage(JSON.stringify({language:u.language,code:u.code,immediateClose:!0}))}else u.highlightedCode=t.highlight(u.code,u.grammar,u.language),t.hooks.run("before-insert",u),u.element.innerHTML=u.highlightedCode,r&&r.call(n),t.hooks.run("after-highlight",u),t.hooks.run("complete",u)},highlight:function(e,a,r){var l=t.tokenize(e,a);return n.stringify(t.util.encode(l),r)},tokenize:function(e,n){var a=t.Token,r=[e],l=n.rest;if(l){for(var i in l)n[i]=l[i];delete n.rest}e:for(var i in n)if(n.hasOwnProperty(i)&&n[i]){var o=n[i];o="Array"===t.util.type(o)?o:[o];for(var s=0;s<o.length;++s){var u=o[s],g=u.inside,c=!!u.lookbehind,f=0,h=u.alias;u=u.pattern||u;for(var p=0;p<r.length;p++){var d=r[p];if(r.length>e.length)break e;if(!(d instanceof a)){u.lastIndex=0;var m=u.exec(d);if(m){c&&(f=m[1].length);var y=m.index-1+f,m=m[0].slice(f),v=m.length,k=y+v,b=d.slice(0,y+1),w=d.slice(k+1),P=[p,1];b&&P.push(b);var A=new a(i,g?t.tokenize(m,g):m,h);P.push(A),w&&P.push(w),Array.prototype.splice.apply(r,P)}}}}}return r},hooks:{all:{},add:function(e,n){var a=t.hooks.all;a[e]=a[e]||[],a[e].push(n)},run:function(e,n){var a=t.hooks.all[e];if(a&&a.length)for(var r,l=0;r=a[l++];)r(n)}}},n=t.Token=function(e,t,n){this.type=e,this.content=t,this.alias=n};if(n.stringify=function(e,a,r){if("string"==typeof e)return e;if("Array"===t.util.type(e))return e.map(function(t){return n.stringify(t,a,e)}).join("");var l={type:e.type,content:n.stringify(e.content,a,r),tag:"span",classes:["token",e.type],attributes:{},language:a,parent:r};if("comment"==l.type&&(l.attributes.spellcheck="true"),e.alias){var i="Array"===t.util.type(e.alias)?e.alias:[e.alias];Array.prototype.push.apply(l.classes,i)}t.hooks.run("wrap",l);var o="";for(var s in l.attributes)o+=(o?" ":"")+s+'="'+(l.attributes[s]||"")+'"';return"<"+l.tag+' class="'+l.classes.join(" ")+'" '+o+">"+l.content+"</"+l.tag+">"},!_self.document)return _self.addEventListener?(_self.addEventListener("message",function(e){var n=JSON.parse(e.data),a=n.language,r=n.code,l=n.immediateClose;_self.postMessage(t.highlight(r,t.languages[a],a)),l&&_self.close()},!1),_self.Prism):_self.Prism;var a=document.getElementsByTagName("script");return a=a[a.length-1],a&&(t.filename=a.src,document.addEventListener&&!a.hasAttribute("data-manual")&&document.addEventListener("DOMContentLoaded",t.highlightAll)),_self.Prism}();"undefined"!=typeof module&&module.exports&&(module.exports=Prism),"undefined"!=typeof global&&(global.Prism=Prism);
-Prism.languages.markup={comment:/<!--[\w\W]*?-->/,prolog:/<\?[\w\W]+?\?>/,doctype:/<!DOCTYPE[\w\W]+?>/,cdata:/<!\[CDATA\[[\w\W]*?]]>/i,tag:{pattern:/<\/?(?!\d)[^\s>\/=.$<]+(?:\s+[^\s>\/=]+(?:=(?:("|')(?:\\\1|\\?(?!\1)[\w\W])*\1|[^\s'">=]+))?)*\s*\/?>/i,inside:{tag:{pattern:/^<\/?[^\s>\/]+/i,inside:{punctuation:/^<\/?/,namespace:/^[^\s>\/:]+:/}},"attr-value":{pattern:/=(?:('|")[\w\W]*?(\1)|[^\s>]+)/i,inside:{punctuation:/[=>"']/}},punctuation:/\/?>/,"attr-name":{pattern:/[^\s>\/]+/,inside:{namespace:/^[^\s>\/:]+:/}}}},entity:/&#?[\da-z]{1,8};/i},Prism.hooks.add("wrap",function(a){"entity"===a.type&&(a.attributes.title=a.content.replace(/&amp;/,"&"))}),Prism.languages.xml=Prism.languages.markup,Prism.languages.html=Prism.languages.markup,Prism.languages.mathml=Prism.languages.markup,Prism.languages.svg=Prism.languages.markup;
-Prism.languages.css={comment:/\/\*[\w\W]*?\*\//,atrule:{pattern:/@[\w-]+?.*?(;|(?=\s*\{))/i,inside:{rule:/@[\w-]+/}},url:/url\((?:(["'])(\\(?:\r\n|[\w\W])|(?!\1)[^\\\r\n])*\1|.*?)\)/i,selector:/[^\{\}\s][^\{\};]*?(?=\s*\{)/,string:/("|')(\\(?:\r\n|[\w\W])|(?!\1)[^\\\r\n])*\1/,property:/(\b|\B)[\w-]+(?=\s*:)/i,important:/\B!important\b/i,"function":/[-a-z0-9]+(?=\()/i,punctuation:/[(){};:]/},Prism.languages.css.atrule.inside.rest=Prism.util.clone(Prism.languages.css),Prism.languages.markup&&(Prism.languages.insertBefore("markup","tag",{style:{pattern:/(<style[\w\W]*?>)[\w\W]*?(?=<\/style>)/i,lookbehind:!0,inside:Prism.languages.css,alias:"language-css"}}),Prism.languages.insertBefore("inside","attr-value",{"style-attr":{pattern:/\s*style=("|').*?\1/i,inside:{"attr-name":{pattern:/^\s*style/i,inside:Prism.languages.markup.tag.inside},punctuation:/^\s*=\s*['"]|['"]\s*$/,"attr-value":{pattern:/.+/i,inside:Prism.languages.css}},alias:"language-css"}},Prism.languages.markup.tag));
-Prism.languages.clike={comment:[{pattern:/(^|[^\\])\/\*[\w\W]*?\*\//,lookbehind:!0},{pattern:/(^|[^\\:])\/\/.*/,lookbehind:!0}],string:/(["'])(\\(?:\r\n|[\s\S])|(?!\1)[^\\\r\n])*\1/,"class-name":{pattern:/((?:\b(?:class|interface|extends|implements|trait|instanceof|new)\s+)|(?:catch\s+\())[a-z0-9_\.\\]+/i,lookbehind:!0,inside:{punctuation:/(\.|\\)/}},keyword:/\b(if|else|while|do|for|return|in|instanceof|function|new|try|throw|catch|finally|null|break|continue)\b/,"boolean":/\b(true|false)\b/,"function":/[a-z0-9_]+(?=\()/i,number:/\b-?(?:0x[\da-f]+|\d*\.?\d+(?:e[+-]?\d+)?)\b/i,operator:/--?|\+\+?|!=?=?|<=?|>=?|==?=?|&&?|\|\|?|\?|\*|\/|~|\^|%/,punctuation:/[{}[\];(),.:]/};
-Prism.languages.javascript=Prism.languages.extend("clike",{keyword:/\b(as|async|await|break|case|catch|class|const|continue|debugger|default|delete|do|else|enum|export|extends|finally|for|from|function|get|if|implements|import|in|instanceof|interface|let|new|null|of|package|private|protected|public|return|set|static|super|switch|this|throw|try|typeof|var|void|while|with|yield)\b/,number:/\b-?(0x[\dA-Fa-f]+|0b[01]+|0o[0-7]+|\d*\.?\d+([Ee][+-]?\d+)?|NaN|Infinity)\b/,"function":/[_$a-zA-Z\xA0-\uFFFF][_$a-zA-Z0-9\xA0-\uFFFF]*(?=\()/i}),Prism.languages.insertBefore("javascript","keyword",{regex:{pattern:/(^|[^\/])\/(?!\/)(\[.+?]|\\.|[^\/\\\r\n])+\/[gimyu]{0,5}(?=\s*($|[\r\n,.;})]))/,lookbehind:!0}}),Prism.languages.insertBefore("javascript","class-name",{"template-string":{pattern:/`(?:\\`|\\?[^`])*`/,inside:{interpolation:{pattern:/\$\{[^}]+\}/,inside:{"interpolation-punctuation":{pattern:/^\$\{|\}$/,alias:"punctuation"},rest:Prism.languages.javascript}},string:/[\s\S]+/}}}),Prism.languages.markup&&Prism.languages.insertBefore("markup","tag",{script:{pattern:/(<script[\w\W]*?>)[\w\W]*?(?=<\/script>)/i,lookbehind:!0,inside:Prism.languages.javascript,alias:"language-javascript"}}),Prism.languages.js=Prism.languages.javascript;
-Prism.languages.c=Prism.languages.extend("clike",{keyword:/\b(asm|typeof|inline|auto|break|case|char|const|continue|default|do|double|else|enum|extern|float|for|goto|if|int|long|register|return|short|signed|sizeof|static|struct|switch|typedef|union|unsigned|void|volatile|while)\b/,operator:/\-[>-]?|\+\+?|!=?|<<?=?|>>?=?|==?|&&?|\|?\||[~^%?*\/]/,number:/\b-?(?:0x[\da-f]+|\d*\.?\d+(?:e[+-]?\d+)?)[ful]*\b/i}),Prism.languages.insertBefore("c","string",{macro:{pattern:/(^\s*)#\s*[a-z]+([^\r\n\\]|\\.|\\(?:\r\n?|\n))*/im,lookbehind:!0,alias:"property",inside:{string:{pattern:/(#\s*include\s*)(<.+?>|("|')(\\?.)+?\3)/,lookbehind:!0},directive:{pattern:/(#\s*)\b(define|elif|else|endif|error|ifdef|ifndef|if|import|include|line|pragma|undef|using)\b/,lookbehind:!0,alias:"keyword"}}},constant:/\b(__FILE__|__LINE__|__DATE__|__TIME__|__TIMESTAMP__|__func__|EOF|NULL|stdin|stdout|stderr)\b/}),delete Prism.languages.c["class-name"],delete Prism.languages.c["boolean"];
-Prism.languages.csharp=Prism.languages.extend("clike",{keyword:/\b(abstract|as|async|await|base|bool|break|byte|case|catch|char|checked|class|const|continue|decimal|default|delegate|do|double|else|enum|event|explicit|extern|false|finally|fixed|float|for|foreach|goto|if|implicit|in|int|interface|internal|is|lock|long|namespace|new|null|object|operator|out|override|params|private|protected|public|readonly|ref|return|sbyte|sealed|short|sizeof|stackalloc|static|string|struct|switch|this|throw|true|try|typeof|uint|ulong|unchecked|unsafe|ushort|using|virtual|void|volatile|while|add|alias|ascending|async|await|descending|dynamic|from|get|global|group|into|join|let|orderby|partial|remove|select|set|value|var|where|yield)\b/,string:[/@("|')(\1\1|\\\1|\\?(?!\1)[\s\S])*\1/,/("|')(\\?.)*?\1/],number:/\b-?(0x[\da-f]+|\d*\.?\d+f?)\b/i}),Prism.languages.insertBefore("csharp","keyword",{preprocessor:{pattern:/(^\s*)#.*/m,lookbehind:!0,alias:"property",inside:{directive:{pattern:/(\s*#)\b(define|elif|else|endif|endregion|error|if|line|pragma|region|undef|warning)\b/,lookbehind:!0,alias:"keyword"}}}});
-Prism.languages.cpp=Prism.languages.extend("c",{keyword:/\b(alignas|alignof|asm|auto|bool|break|case|catch|char|char16_t|char32_t|class|compl|const|constexpr|const_cast|continue|decltype|default|delete|do|double|dynamic_cast|else|enum|explicit|export|extern|float|for|friend|goto|if|inline|int|long|mutable|namespace|new|noexcept|nullptr|operator|private|protected|public|register|reinterpret_cast|return|short|signed|sizeof|static|static_assert|static_cast|struct|switch|template|this|thread_local|throw|try|typedef|typeid|typename|union|unsigned|using|virtual|void|volatile|wchar_t|while)\b/,"boolean":/\b(true|false)\b/,operator:/[-+]{1,2}|!=?|<{1,2}=?|>{1,2}=?|\->|:{1,2}|={1,2}|\^|~|%|&{1,2}|\|?\||\?|\*|\/|\b(and|and_eq|bitand|bitor|not|not_eq|or|or_eq|xor|xor_eq)\b/}),Prism.languages.insertBefore("cpp","keyword",{"class-name":{pattern:/(class\s+)[a-z0-9_]+/i,lookbehind:!0}});
-Prism.languages.objectivec=Prism.languages.extend("c",{keyword:/\b(asm|typeof|inline|auto|break|case|char|const|continue|default|do|double|else|enum|extern|float|for|goto|if|int|long|register|return|short|signed|sizeof|static|struct|switch|typedef|union|unsigned|void|volatile|while|in|self|super)\b|(@interface|@end|@implementation|@protocol|@class|@public|@protected|@private|@property|@try|@catch|@finally|@throw|@synthesize|@dynamic|@selector)\b/,string:/("|')(\\(?:\r\n|[\s\S])|(?!\1)[^\\\r\n])*\1|@"(\\(?:\r\n|[\s\S])|[^"\\\r\n])*"/,operator:/-[->]?|\+\+?|!=?|<<?=?|>>?=?|==?|&&?|\|\|?|[~^%?*\/@]/});
-Prism.languages.swift=Prism.languages.extend("clike",{string:{pattern:/("|')(\\(?:\((?:[^()]|\([^)]+\))+\)|\r\n|[\s\S])|(?!\1)[^\\\r\n])*\1/,inside:{interpolation:{pattern:/\\\((?:[^()]|\([^)]+\))+\)/,inside:{delimiter:{pattern:/^\\\(|\)$/,alias:"variable"}}}}},keyword:/\b(as|associativity|break|case|catch|class|continue|convenience|default|defer|deinit|didSet|do|dynamic(?:Type)?|else|enum|extension|fallthrough|final|for|func|get|guard|if|import|in|infix|init|inout|internal|is|lazy|left|let|mutating|new|none|nonmutating|operator|optional|override|postfix|precedence|prefix|private|Protocol|public|repeat|required|rethrows|return|right|safe|self|Self|set|static|struct|subscript|super|switch|throws?|try|Type|typealias|unowned|unsafe|var|weak|where|while|willSet|__(?:COLUMN__|FILE__|FUNCTION__|LINE__))\b/,number:/\b([\d_]+(\.[\de_]+)?|0x[a-f0-9_]+(\.[a-f0-9p_]+)?|0b[01_]+|0o[0-7_]+)\b/i,constant:/\b(nil|[A-Z_]{2,}|k[A-Z][A-Za-z_]+)\b/,atrule:/@\b(IB(?:Outlet|Designable|Action|Inspectable)|class_protocol|exported|noreturn|NS(?:Copying|Managed)|objc|UIApplicationMain|auto_closure)\b/,builtin:/\b([A-Z]\S+|abs|advance|alignof(?:Value)?|assert|contains|count(?:Elements)?|debugPrint(?:ln)?|distance|drop(?:First|Last)|dump|enumerate|equal|filter|find|first|getVaList|indices|isEmpty|join|last|lexicographicalCompare|map|max(?:Element)?|min(?:Element)?|numericCast|overlaps|partition|print(?:ln)?|reduce|reflect|reverse|sizeof(?:Value)?|sort(?:ed)?|split|startsWith|stride(?:of(?:Value)?)?|suffix|swap|toDebugString|toString|transcode|underestimateCount|unsafeBitCast|with(?:ExtendedLifetime|Unsafe(?:MutablePointers?|Pointers?)|VaList))\b/}),Prism.languages.swift.string.inside.interpolation.inside.rest=Prism.util.clone(Prism.languages.swift);
-!function(){function e(e,t){return Array.prototype.slice.call((t||document).querySelectorAll(e))}function t(e,t){return t=" "+t+" ",(" "+e.className+" ").replace(/[\n\t]/g," ").indexOf(t)>-1}function n(e,n,i){for(var o,a=n.replace(/\s+/g,"").split(","),l=+e.getAttribute("data-line-offset")||0,d=r()?parseInt:parseFloat,c=d(getComputedStyle(e).lineHeight),s=0;o=a[s++];){o=o.split("-");var u=+o[0],m=+o[1]||u,h=document.createElement("div");h.textContent=Array(m-u+2).join(" \n"),h.className=(i||"")+" line-highlight",t(e,"line-numbers")||(h.setAttribute("data-start",u),m>u&&h.setAttribute("data-end",m)),h.style.top=(u-l-1)*c+"px",t(e,"line-numbers")?e.appendChild(h):(e.querySelector("code")||e).appendChild(h)}}function i(){var t=location.hash.slice(1);e(".temporary.line-highlight").forEach(function(e){e.parentNode.removeChild(e)});var i=(t.match(/\.([\d,-]+)$/)||[,""])[1];if(i&&!document.getElementById(t)){var r=t.slice(0,t.lastIndexOf(".")),o=document.getElementById(r);o&&(o.hasAttribute("data-line")||o.setAttribute("data-line",""),n(o,i,"temporary "),document.querySelector(".temporary.line-highlight").scrollIntoView())}}if("undefined"!=typeof self&&self.Prism&&self.document&&document.querySelector){var r=function(){var e;return function(){if("undefined"==typeof e){var t=document.createElement("div");t.style.fontSize="13px",t.style.lineHeight="1.5",t.style.padding=0,t.style.border=0,t.innerHTML="&nbsp;<br />&nbsp;",document.body.appendChild(t),e=38===t.offsetHeight,document.body.removeChild(t)}return e}}(),o=0;Prism.hooks.add("complete",function(t){var r=t.element.parentNode,a=r&&r.getAttribute("data-line");r&&a&&/pre/i.test(r.nodeName)&&(clearTimeout(o),e(".line-highlight",r).forEach(function(e){e.parentNode.removeChild(e)}),n(r,a),o=setTimeout(i,1))}),window.addEventListener&&window.addEventListener("hashchange",i)}}();
-
-}).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 },{}],"/Users/jaredsmith/Sites/github/mullins-website/assets/app/modules/menu.js":[function(require,module,exports){
 var jQuery = require('jquery');
 var $ = require('jQuery');
@@ -386,239 +169,97 @@ var Menu = (function($, _) {
     'use strict';
 
     var def = function() {
-        this.$el = $('.main-menu');
-        this.$control = $('.menu-controls .hamburger');
-        this.$close = $('.menu-controls .close');
-
-        this.states = {
-            active : 'is-expanded',
-            min : 'is-collapsed',
-            logoReady: 'min-logo',
-            mobileOpen: 'mobile-open'
-        };
-
-        this.first = false;
 
         init.call(this);
     };
 
     var init = function() {
-        if(hwe.isMobile) {
-            this.expand();
-        }
-        this.bind();
+        setTimeout(function(self) {
+            self.setup();
+            self.bind();
+        }, 1200, this);
+        
     };
 
     def.prototype = {
+        setup: function() {
+             $('.menu-item a').each(function(i) {
+                $(this).attr('data-top', $($(this).attr('href')).position().top + $(window).outerHeight());
+            })
+        },
+
         bind : function() {
             var self = this;
-            
-            var lastScrollTop = 0;
-            $(window).scroll(function(event){
-               var st = $(this).scrollTop();
-               if (st > lastScrollTop){
-                   self.collapse();
-               } else {
-                    self.expand();
-               }
-               if(st < 0) { // safari fix for negative elastic scroll
-                lastScrollTop = lastScrollTop;
-               } else {
-                lastScrollTop = st;
-               }
+
+            $('.menu-item a').each(function() {
+                $(this).on('click', function(e) {
+                    e.preventDefault();
+                    self.scrollMe($(this).attr('data-top'));
+                });
             });
 
-            this.$control.on('click', function() {
-                self.$el.addClass(self.states.mobileOpen);
+            $('.scroller').on('scroll', function() {
+
             });
-            this.$close.on('click', function() {
-                self.$el.removeClass(self.states.mobileOpen);
+            this.sticks();
+            
+        },
+        scrollMe : function(where) {
+            $('.scroller').animate({'scrollTop' : where }, 300);
+        },
+
+        sticks : function() {
+            var s = $('.scroller'),
+                menuTop = $('.main-menu').offset().top,
+                top = $(window).outerHeight(true) - menuTop,
+                left = $('.product').offset().left,
+                h = s.outerHeight(true),
+                cEl = $('.product'),
+                hitH = cEl.outerHeight(true),
+                hitTop = cEl.offset().top,
+                w, hitValue, e;
+
+            $('.scroller').on('scroll', function() {
+                w = s.scrollTop();
+                e = $('.content').offset().top - menuTop;
+
+                if(e <= 0) {
+                    // console.log('start sticking');
+                    $('.product').each(function() {
+                        var o = $(this).offset().top - menuTop;
+                        console.log(o);
+                        if(o <= 0) {
+                            $('.product-name', this).css({'position': 'fixed', 'top': menuTop, 'left': left, 'background': 'white', 'width' : $(this).outerWidth(true), 'padding': '2rem'});
+                            $('.product-description', this).css('margin-top', $('.product-name', this).outerHeight());
+                        } else {
+                            $('.product-name', this).css({'position': 'relative', 'top': 'auto', 'left': 'auto', 'width':'auto','padding':'0px'});
+                            $('.product-description', this).css('margin-top', 'auto');
+                        }
+                    })
+                } else {
+                    // console.log('stop sticking');
+                    $('.product-name', $('.product').first()).css({'position': 'relative', 'top': 'auto', 'left': 'auto', 'width':'auto','padding':'0px'});
+                    $('.product-description', $('.product').first()).css('margin-top', 'auto');
+                }
+
+                // console.log(w, e, top)
+
+                // // character containers
+                // if(w >= top) {
+                //     console.log('stuck');
+                // } else {
+                //     console.log('unstuck');
+                //     // $('.scroller').css({'padding-top' : '0px'});
+                // }
             });
-        },
-        collapse: function() {
-            if(!this.first) {
-                setTimeout(function(context) {
-                    $('.logo').addClass(context.states.logoReady);
-                }, 1000, this);
-            }
-            this.$el.addClass(this.states.min).removeClass(this.states.active);
-            this.first = true;
-        },
-        expand: function() {
-            this.$el.removeClass(this.states.min).addClass(this.states.active);
         }
+
     };
 
     return def;
 })(jQuery, _);
 
 module.exports = Menu;
-},{"Underscore":"/Users/jaredsmith/Sites/github/mullins-website/node_modules/Underscore/underscore.js","jQuery":"/Users/jaredsmith/Sites/github/mullins-website/node_modules/jQuery/dist/jquery.js","jquery":"/Users/jaredsmith/Sites/github/mullins-website/node_modules/jquery/dist/jquery.js"}],"/Users/jaredsmith/Sites/github/mullins-website/assets/app/modules/overlay.js":[function(require,module,exports){
-var jQuery = require('jquery');
-var $ = require('jQuery');
-var _ = require('Underscore');
-
-var Overlay = (function($, _) {
-    'use strict';
-
-    var def = function(el) {
-        this.$els = {
-            'triggers' : el,
-            'el' : $('.overlay'),
-            'close' : $('.close', $('.overlay')),
-            'thanks' : $('.hidden-thank-you'),
-            'bod' : $('body')
-        };
-        this.lastScroll = 0;
-
-        this.$baseContent = this.$els.el.html();
-        this.states = {
-            active : 'is-active',
-            fixed: 'fixed'
-        };
-
-        init.call(this);
-    };
-
-    var init = function() {
-        if(hwe.contact) {
-            this.toggle();
-        }
-        this.bind();
-    };
-
-    def.prototype = {
-        bind : function() {
-            var self = this;
-            var callCount = 0;
-
-            hwe.intercom.listen('form-sent-ok', function(e) {
-                console.log('called', e);
-                if(callCount < 1) {
-                    console.log('called');
-                    self.showThankYou();
-                } else {
-                    hwe.intercom.disconnect('form-sent-ok');
-                }
-                callCount++;
-            });
-            
-            this.$els.triggers.each(function() {
-                $(this).on('click', _.bind(self.toggle, self));
-            });
-            this.$els.close.on('click', function() {
-                self.toggle();
-            });
-            $(window).on('keydown', function(e) {
-                if(e.which == 27 && self.$els.el.hasClass(self.states.active)) {
-                    self.toggle();
-                }
-            })
-        },
-        toggle: function() {
-            window.location.hash = '#contact';
-            this.$els.el.toggleClass(this.states.active);
-            this.$els.bod.css('top', -Math.abs($('.main').offset().top)).toggleClass(this.states.fixed);
-            
-            if(!this.$els.el.hasClass(this.states.active)) {
-                window.location.hash = '';
-                this.$els.bod.removeAttr('style');
-                $('html, body').scrollTop(Math.abs(this.lastScroll));
-            }
-            this.lastScroll = this.$els.bod.offset().top;
-        },
-        showThankYou: function() {
-            var self = this;
-            $('.wpcf7', this.$els.el).fadeOut(300);
-            setTimeout(function() {
-                self.$els.thanks.fadeIn(200);
-                setTimeout(function() {
-                    self.toggle();
-                    setTimeout(function() {
-                        self.reset();
-                    }, 100);
-                },1200);
-            }, 350);
-        },
-
-        reset: function() {
-            this.$els.thanks.hide();
-            $('.wpcf7', this.$els.el).show();
-            $(window).off('keydown');
-            this.$els.close.off('click');
-            this.$els.triggers.each(function() {
-                $(this).off('click');
-            });
-            hwe.intercom.broadcast('reset-forms');
-
-            //turn it all back on
-            this.bind();
-        }
-    };
-
-    return def;
-})(jQuery, _);
-
-module.exports = Overlay;
-},{"Underscore":"/Users/jaredsmith/Sites/github/mullins-website/node_modules/Underscore/underscore.js","jQuery":"/Users/jaredsmith/Sites/github/mullins-website/node_modules/jQuery/dist/jquery.js","jquery":"/Users/jaredsmith/Sites/github/mullins-website/node_modules/jquery/dist/jquery.js"}],"/Users/jaredsmith/Sites/github/mullins-website/assets/app/modules/team.js":[function(require,module,exports){
-var jQuery = require('jquery');
-var $ = require('jQuery');
-var _ = require('Underscore');
-
-var Team = (function($, _) {
-    'use strict';
-
-    var def = function() {
-        this.$els = {
-            'el' : $('.team-wrap'),
-            'items' : $('.team-member')
-        };
-        this.states = {
-            active : 'is-active'
-        };
-
-        init.call(this);
-    };
-
-    var init = function() {
-        this.bind();
-    };
-
-    def.prototype = {
-        bind : function() {
-            var self = this;
-            this.$els.items.each(function() {
-                var $el = $(this);
-
-                if(hwe.isDesktop) {
-                    $(this).on('click', function(e) {
-                        self.toggle($(this));
-                    });
-                }
-                if(hwe.isMobile) {
-                    $(this).on('touchstart', function(e) {
-                        self.toggle($(this));
-                    });
-                }
-            });
-        },
-        toggle: function($el) {
-            var self = this;
-            var active = false;
-            if($el.hasClass(self.states.active)) {
-                active = true;
-            }
-            this.$els.items.each(function() {
-                $(this).removeClass(self.states.active);
-            });
-            $el.toggleClass(this.states.active, !active);
-        }
-    };
-
-    return def;
-})(jQuery, _);
-
-module.exports = Team;
 },{"Underscore":"/Users/jaredsmith/Sites/github/mullins-website/node_modules/Underscore/underscore.js","jQuery":"/Users/jaredsmith/Sites/github/mullins-website/node_modules/jQuery/dist/jquery.js","jquery":"/Users/jaredsmith/Sites/github/mullins-website/node_modules/jquery/dist/jquery.js"}],"/Users/jaredsmith/Sites/github/mullins-website/node_modules/Underscore/underscore.js":[function(require,module,exports){
 //     Underscore.js 1.8.3
 //     http://underscorejs.org
@@ -11383,763 +11024,4 @@ return jQuery;
 
 },{}],"/Users/jaredsmith/Sites/github/mullins-website/node_modules/jquery/dist/jquery.js":[function(require,module,exports){
 module.exports=require("/Users/jaredsmith/Sites/github/mullins-website/node_modules/jQuery/dist/jquery.js")
-},{"/Users/jaredsmith/Sites/github/mullins-website/node_modules/jQuery/dist/jquery.js":"/Users/jaredsmith/Sites/github/mullins-website/node_modules/jQuery/dist/jquery.js"}],"/Users/jaredsmith/Sites/github/mullins-website/node_modules/validator/validator.js":[function(require,module,exports){
-/*!
- * Copyright (c) 2015 Chris O'Hara <cohara87@gmail.com>
- *
- * Permission is hereby granted, free of charge, to any person obtaining
- * a copy of this software and associated documentation files (the
- * "Software"), to deal in the Software without restriction, including
- * without limitation the rights to use, copy, modify, merge, publish,
- * distribute, sublicense, and/or sell copies of the Software, and to
- * permit persons to whom the Software is furnished to do so, subject to
- * the following conditions:
- *
- * The above copyright notice and this permission notice shall be
- * included in all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
- * EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
- * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
- * NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
- * LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
- * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
- * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
- */
-
-(function (name, definition) {
-    if (typeof exports !== 'undefined' && typeof module !== 'undefined') {
-        module.exports = definition();
-    } else if (typeof define === 'function' && typeof define.amd === 'object') {
-        define(definition);
-    } else {
-        this[name] = definition();
-    }
-})('validator', function (validator) {
-
-    'use strict';
-
-    validator = { version: '3.43.0' };
-
-    var emailUser = /^((([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~])+(\.([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~])+)*)|((\x22)((((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(([\x01-\x08\x0b\x0c\x0e-\x1f\x7f]|\x21|[\x23-\x5b]|[\x5d-\x7e])|(\\[\x01-\x09\x0b\x0c\x0d-\x7f])))*(((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(\x22)))$/i;
-
-    var emailUserUtf8 = /^((([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+(\.([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+)*)|((\x22)((((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(([\x01-\x08\x0b\x0c\x0e-\x1f\x7f]|\x21|[\x23-\x5b]|[\x5d-\x7e]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(\\([\x01-\x09\x0b\x0c\x0d-\x7f]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]))))*(((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(\x22)))$/i;
-
-    var displayName = /^(?:[a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~\.]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+(?:[a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~\.]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|\s)*<(.+)>$/i;
-
-    var creditCard = /^(?:4[0-9]{12}(?:[0-9]{3})?|5[1-5][0-9]{14}|6(?:011|5[0-9][0-9])[0-9]{12}|3[47][0-9]{13}|3(?:0[0-5]|[68][0-9])[0-9]{11}|(?:2131|1800|35\d{3})\d{11})$/;
-
-    var isin = /^[A-Z]{2}[0-9A-Z]{9}[0-9]$/;
-
-    var isbn10Maybe = /^(?:[0-9]{9}X|[0-9]{10})$/
-      , isbn13Maybe = /^(?:[0-9]{13})$/;
-
-    var ipv4Maybe = /^(\d+)\.(\d+)\.(\d+)\.(\d+)$/
-      , ipv6Block = /^[0-9A-F]{1,4}$/i;
-
-    var uuid = {
-        '3': /^[0-9A-F]{8}-[0-9A-F]{4}-3[0-9A-F]{3}-[0-9A-F]{4}-[0-9A-F]{12}$/i
-      , '4': /^[0-9A-F]{8}-[0-9A-F]{4}-4[0-9A-F]{3}-[89AB][0-9A-F]{3}-[0-9A-F]{12}$/i
-      , '5': /^[0-9A-F]{8}-[0-9A-F]{4}-5[0-9A-F]{3}-[89AB][0-9A-F]{3}-[0-9A-F]{12}$/i
-      , all: /^[0-9A-F]{8}-[0-9A-F]{4}-[0-9A-F]{4}-[0-9A-F]{4}-[0-9A-F]{12}$/i
-    };
-
-    var alpha = /^[A-Z]+$/i
-      , alphanumeric = /^[0-9A-Z]+$/i
-      , numeric = /^[-+]?[0-9]+$/
-      , int = /^(?:[-+]?(?:0|[1-9][0-9]*))$/
-      , float = /^(?:[-+]?(?:[0-9]+))?(?:\.[0-9]*)?(?:[eE][\+\-]?(?:[0-9]+))?$/
-      , hexadecimal = /^[0-9A-F]+$/i
-      , decimal = /^[-+]?[0-9]*(\.[0-9]+)?$/
-      , hexcolor = /^#?([0-9A-F]{3}|[0-9A-F]{6})$/i;
-
-    var ascii = /^[\x00-\x7F]+$/
-      , multibyte = /[^\x00-\x7F]/
-      , fullWidth = /[^\u0020-\u007E\uFF61-\uFF9F\uFFA0-\uFFDC\uFFE8-\uFFEE0-9a-zA-Z]/
-      , halfWidth = /[\u0020-\u007E\uFF61-\uFF9F\uFFA0-\uFFDC\uFFE8-\uFFEE0-9a-zA-Z]/;
-
-    var surrogatePair = /[\uD800-\uDBFF][\uDC00-\uDFFF]/;
-
-    var base64 = /^(?:[A-Z0-9+\/]{4})*(?:[A-Z0-9+\/]{2}==|[A-Z0-9+\/]{3}=|[A-Z0-9+\/]{4})$/i;
-
-    var phones = {
-      'zh-CN': /^(\+?0?86\-?)?1[345789]\d{9}$/,
-      'en-ZA': /^(\+?27|0)\d{9}$/,
-      'en-AU': /^(\+?61|0)4\d{8}$/,
-      'en-HK': /^(\+?852\-?)?[569]\d{3}\-?\d{4}$/,
-      'fr-FR': /^(\+?33|0)[67]\d{8}$/,
-      'pt-PT': /^(\+351)?9[1236]\d{7}$/,
-      'el-GR': /^(\+30)?((2\d{9})|(69\d{8}))$/,
-      'en-GB': /^(\+?44|0)7\d{9}$/,
-      'en-US': /^(\+?1)?[2-9]\d{2}[2-9](?!11)\d{6}$/,
-      'en-ZM': /^(\+26)?09[567]\d{7}$/,
-      'ru-RU': /^(\+?7|8)?9\d{9}$/
-    };
-
-    validator.extend = function (name, fn) {
-        validator[name] = function () {
-            var args = Array.prototype.slice.call(arguments);
-            args[0] = validator.toString(args[0]);
-            return fn.apply(validator, args);
-        };
-    };
-
-    //Right before exporting the validator object, pass each of the builtins
-    //through extend() so that their first argument is coerced to a string
-    validator.init = function () {
-        for (var name in validator) {
-            if (typeof validator[name] !== 'function' || name === 'toString' ||
-                    name === 'toDate' || name === 'extend' || name === 'init') {
-                continue;
-            }
-            validator.extend(name, validator[name]);
-        }
-    };
-
-    validator.toString = function (input) {
-        if (typeof input === 'object' && input !== null && input.toString) {
-            input = input.toString();
-        } else if (input === null || typeof input === 'undefined' || (isNaN(input) && !input.length)) {
-            input = '';
-        } else if (typeof input !== 'string') {
-            input += '';
-        }
-        return input;
-    };
-
-    validator.toDate = function (date) {
-        if (Object.prototype.toString.call(date) === '[object Date]') {
-            return date;
-        }
-        date = Date.parse(date);
-        return !isNaN(date) ? new Date(date) : null;
-    };
-
-    validator.toFloat = function (str) {
-        return parseFloat(str);
-    };
-
-    validator.toInt = function (str, radix) {
-        return parseInt(str, radix || 10);
-    };
-
-    validator.toBoolean = function (str, strict) {
-        if (strict) {
-            return str === '1' || str === 'true';
-        }
-        return str !== '0' && str !== 'false' && str !== '';
-    };
-
-    validator.equals = function (str, comparison) {
-        return str === validator.toString(comparison);
-    };
-
-    validator.contains = function (str, elem) {
-        return str.indexOf(validator.toString(elem)) >= 0;
-    };
-
-    validator.matches = function (str, pattern, modifiers) {
-        if (Object.prototype.toString.call(pattern) !== '[object RegExp]') {
-            pattern = new RegExp(pattern, modifiers);
-        }
-        return pattern.test(str);
-    };
-
-    var default_email_options = {
-        allow_display_name: false,
-        allow_utf8_local_part: true,
-        require_tld: true
-    };
-
-    validator.isEmail = function (str, options) {
-        options = merge(options, default_email_options);
-
-        if (options.allow_display_name) {
-            var display_email = str.match(displayName);
-            if (display_email) {
-                str = display_email[1];
-            }
-        } else if (/\s/.test(str)) {
-            return false;
-        }
-
-        var parts = str.split('@')
-          , domain = parts.pop()
-          , user = parts.join('@');
-
-        var lower_domain = domain.toLowerCase();
-        if (lower_domain === 'gmail.com' || lower_domain === 'googlemail.com') {
-            user = user.replace(/\./g, '').toLowerCase();
-        }
-
-        if (!validator.isFQDN(domain, {require_tld: options.require_tld})) {
-            return false;
-        }
-
-        return options.allow_utf8_local_part ?
-            emailUserUtf8.test(user) :
-            emailUser.test(user);
-    };
-
-    var default_url_options = {
-        protocols: [ 'http', 'https', 'ftp' ]
-      , require_tld: true
-      , require_protocol: false
-      , require_valid_protocol: true
-      , allow_underscores: false
-      , allow_trailing_dot: false
-      , allow_protocol_relative_urls: false
-    };
-
-    validator.isURL = function (url, options) {
-        if (!url || url.length >= 2083 || /\s/.test(url)) {
-            return false;
-        }
-        if (url.indexOf('mailto:') === 0) {
-            return false;
-        }
-        options = merge(options, default_url_options);
-        var protocol, auth, host, hostname, port,
-            port_str, split;
-        split = url.split('://');
-        if (split.length > 1) {
-            protocol = split.shift();
-            if (options.require_valid_protocol && options.protocols.indexOf(protocol) === -1) {
-                return false;
-            }
-        } else if (options.require_protocol) {
-            return false;
-        }  else if (options.allow_protocol_relative_urls && url.substr(0, 2) === '//') {
-            split[0] = url.substr(2);
-        }
-        url = split.join('://');
-        split = url.split('#');
-        url = split.shift();
-
-        split = url.split('?');
-        url = split.shift();
-
-        split = url.split('/');
-        url = split.shift();
-        split = url.split('@');
-        if (split.length > 1) {
-            auth = split.shift();
-            if (auth.indexOf(':') >= 0 && auth.split(':').length > 2) {
-                return false;
-            }
-        }
-        hostname = split.join('@');
-        split = hostname.split(':');
-        host = split.shift();
-        if (split.length) {
-            port_str = split.join(':');
-            port = parseInt(port_str, 10);
-            if (!/^[0-9]+$/.test(port_str) || port <= 0 || port > 65535) {
-                return false;
-            }
-        }
-        if (!validator.isIP(host) && !validator.isFQDN(host, options) &&
-                host !== 'localhost') {
-            return false;
-        }
-        if (options.host_whitelist &&
-                options.host_whitelist.indexOf(host) === -1) {
-            return false;
-        }
-        if (options.host_blacklist &&
-                options.host_blacklist.indexOf(host) !== -1) {
-            return false;
-        }
-        return true;
-    };
-
-    validator.isIP = function (str, version) {
-        version = validator.toString(version);
-        if (!version) {
-            return validator.isIP(str, 4) || validator.isIP(str, 6);
-        } else if (version === '4') {
-            if (!ipv4Maybe.test(str)) {
-                return false;
-            }
-            var parts = str.split('.').sort(function (a, b) {
-                return a - b;
-            });
-            return parts[3] <= 255;
-        } else if (version === '6') {
-            var blocks = str.split(':');
-            var foundOmissionBlock = false; // marker to indicate ::
-
-            // At least some OS accept the last 32 bits of an IPv6 address
-            // (i.e. 2 of the blocks) in IPv4 notation, and RFC 3493 says
-            // that '::ffff:a.b.c.d' is valid for IPv4-mapped IPv6 addresses,
-            // and '::a.b.c.d' is deprecated, but also valid.
-            var foundIPv4TransitionBlock = validator.isIP(blocks[blocks.length - 1], 4);
-            var expectedNumberOfBlocks = foundIPv4TransitionBlock ? 7 : 8;
-
-            if (blocks.length > expectedNumberOfBlocks)
-                return false;
-
-            // initial or final ::
-            if (str === '::') {
-                return true;
-            } else if (str.substr(0, 2) === '::') {
-                blocks.shift();
-                blocks.shift();
-                foundOmissionBlock = true;
-            } else if (str.substr(str.length - 2) === '::') {
-                blocks.pop();
-                blocks.pop();
-                foundOmissionBlock = true;
-            }
-
-            for (var i = 0; i < blocks.length; ++i) {
-                // test for a :: which can not be at the string start/end
-                // since those cases have been handled above
-                if (blocks[i] === '' && i > 0 && i < blocks.length -1) {
-                    if (foundOmissionBlock)
-                        return false; // multiple :: in address
-                    foundOmissionBlock = true;
-                } else if (foundIPv4TransitionBlock && i == blocks.length - 1) {
-                    // it has been checked before that the last
-                    // block is a valid IPv4 address
-                } else if (!ipv6Block.test(blocks[i])) {
-                    return false;
-                }
-            }
-
-            if (foundOmissionBlock) {
-                return blocks.length >= 1;
-            } else {
-                return blocks.length === expectedNumberOfBlocks;
-            }
-        }
-        return false;
-    };
-
-    var default_fqdn_options = {
-        require_tld: true
-      , allow_underscores: false
-      , allow_trailing_dot: false
-    };
-
-    validator.isFQDN = function (str, options) {
-        options = merge(options, default_fqdn_options);
-
-        /* Remove the optional trailing dot before checking validity */
-        if (options.allow_trailing_dot && str[str.length - 1] === '.') {
-            str = str.substring(0, str.length - 1);
-        }
-        var parts = str.split('.');
-        if (options.require_tld) {
-            var tld = parts.pop();
-            if (!parts.length || !/^([a-z\u00a1-\uffff]{2,}|xn[a-z0-9-]{2,})$/i.test(tld)) {
-                return false;
-            }
-        }
-        for (var part, i = 0; i < parts.length; i++) {
-            part = parts[i];
-            if (options.allow_underscores) {
-                if (part.indexOf('__') >= 0) {
-                    return false;
-                }
-                part = part.replace(/_/g, '');
-            }
-            if (!/^[a-z\u00a1-\uffff0-9-]+$/i.test(part)) {
-                return false;
-            }
-            if (part[0] === '-' || part[part.length - 1] === '-' ||
-                    part.indexOf('---') >= 0) {
-                return false;
-            }
-        }
-        return true;
-    };
-
-    validator.isBoolean = function(str) {
-        return (['true', 'false', '1', '0'].indexOf(str) >= 0);
-    };
-
-    validator.isAlpha = function (str) {
-        return alpha.test(str);
-    };
-
-    validator.isAlphanumeric = function (str) {
-        return alphanumeric.test(str);
-    };
-
-    validator.isNumeric = function (str) {
-        return numeric.test(str);
-    };
-    
-    validator.isDecimal = function (str) {
-        return decimal.test(str);
-    };
-
-    validator.isHexadecimal = function (str) {
-        return hexadecimal.test(str);
-    };
-
-    validator.isHexColor = function (str) {
-        return hexcolor.test(str);
-    };
-
-    validator.isLowercase = function (str) {
-        return str === str.toLowerCase();
-    };
-
-    validator.isUppercase = function (str) {
-        return str === str.toUpperCase();
-    };
-
-    validator.isInt = function (str, options) {
-        options = options || {};
-        return int.test(str) && (!options.hasOwnProperty('min') || str >= options.min) && (!options.hasOwnProperty('max') || str <= options.max);
-    };
-
-    validator.isFloat = function (str, options) {
-        options = options || {};
-        return str !== '' && float.test(str) && (!options.hasOwnProperty('min') || str >= options.min) && (!options.hasOwnProperty('max') || str <= options.max);
-    };
-
-    validator.isDivisibleBy = function (str, num) {
-        return validator.toFloat(str) % validator.toInt(num) === 0;
-    };
-
-    validator.isNull = function (str) {
-        return str.length === 0;
-    };
-
-    validator.isLength = function (str, min, max) {
-        var surrogatePairs = str.match(/[\uD800-\uDBFF][\uDC00-\uDFFF]/g) || [];
-        var len = str.length - surrogatePairs.length;
-        return len >= min && (typeof max === 'undefined' || len <= max);
-    };
-
-    validator.isByteLength = function (str, min, max) {
-        return str.length >= min && (typeof max === 'undefined' || str.length <= max);
-    };
-
-    validator.isUUID = function (str, version) {
-        var pattern = uuid[version ? version : 'all'];
-        return pattern && pattern.test(str);
-    };
-
-    validator.isDate = function (str) {
-        return !isNaN(Date.parse(str));
-    };
-
-    validator.isAfter = function (str, date) {
-        var comparison = validator.toDate(date || new Date())
-          , original = validator.toDate(str);
-        return !!(original && comparison && original > comparison);
-    };
-
-    validator.isBefore = function (str, date) {
-        var comparison = validator.toDate(date || new Date())
-          , original = validator.toDate(str);
-        return original && comparison && original < comparison;
-    };
-
-    validator.isIn = function (str, options) {
-        var i;
-        if (Object.prototype.toString.call(options) === '[object Array]') {
-            var array = [];
-            for (i in options) {
-                array[i] = validator.toString(options[i]);
-            }
-            return array.indexOf(str) >= 0;
-        } else if (typeof options === 'object') {
-            return options.hasOwnProperty(str);
-        } else if (options && typeof options.indexOf === 'function') {
-            return options.indexOf(str) >= 0;
-        }
-        return false;
-    };
-
-    validator.isCreditCard = function (str) {
-        var sanitized = str.replace(/[^0-9]+/g, '');
-        if (!creditCard.test(sanitized)) {
-            return false;
-        }
-        var sum = 0, digit, tmpNum, shouldDouble;
-        for (var i = sanitized.length - 1; i >= 0; i--) {
-            digit = sanitized.substring(i, (i + 1));
-            tmpNum = parseInt(digit, 10);
-            if (shouldDouble) {
-                tmpNum *= 2;
-                if (tmpNum >= 10) {
-                    sum += ((tmpNum % 10) + 1);
-                } else {
-                    sum += tmpNum;
-                }
-            } else {
-                sum += tmpNum;
-            }
-            shouldDouble = !shouldDouble;
-        }
-        return !!((sum % 10) === 0 ? sanitized : false);
-    };
-
-    validator.isISIN = function (str) {
-        if (!isin.test(str)) {
-            return false;
-        }
-
-        var checksumStr = str.replace(/[A-Z]/g, function(character) {
-            return parseInt(character, 36);
-        });
-
-        var sum = 0, digit, tmpNum, shouldDouble = true;
-        for (var i = checksumStr.length - 2; i >= 0; i--) {
-            digit = checksumStr.substring(i, (i + 1));
-            tmpNum = parseInt(digit, 10);
-            if (shouldDouble) {
-                tmpNum *= 2;
-                if (tmpNum >= 10) {
-                    sum += tmpNum + 1;
-                } else {
-                    sum += tmpNum;
-                }
-            } else {
-                sum += tmpNum;
-            }
-            shouldDouble = !shouldDouble;
-        }
-
-        return parseInt(str.substr(str.length - 1), 10) === (10000 - sum) % 10;
-    };
-
-    validator.isISBN = function (str, version) {
-        version = validator.toString(version);
-        if (!version) {
-            return validator.isISBN(str, 10) || validator.isISBN(str, 13);
-        }
-        var sanitized = str.replace(/[\s-]+/g, '')
-          , checksum = 0, i;
-        if (version === '10') {
-            if (!isbn10Maybe.test(sanitized)) {
-                return false;
-            }
-            for (i = 0; i < 9; i++) {
-                checksum += (i + 1) * sanitized.charAt(i);
-            }
-            if (sanitized.charAt(9) === 'X') {
-                checksum += 10 * 10;
-            } else {
-                checksum += 10 * sanitized.charAt(9);
-            }
-            if ((checksum % 11) === 0) {
-                return !!sanitized;
-            }
-        } else  if (version === '13') {
-            if (!isbn13Maybe.test(sanitized)) {
-                return false;
-            }
-            var factor = [ 1, 3 ];
-            for (i = 0; i < 12; i++) {
-                checksum += factor[i % 2] * sanitized.charAt(i);
-            }
-            if (sanitized.charAt(12) - ((10 - (checksum % 10)) % 10) === 0) {
-                return !!sanitized;
-            }
-        }
-        return false;
-    };
-
-    validator.isMobilePhone = function(str, locale) {
-        if (locale in phones) {
-            return phones[locale].test(str);
-        }
-        return false;
-    };
-
-    var default_currency_options = {
-        symbol: '$'
-      , require_symbol: false
-      , allow_space_after_symbol: false
-      , symbol_after_digits: false
-      , allow_negatives: true
-      , parens_for_negatives: false
-      , negative_sign_before_digits: false
-      , negative_sign_after_digits: false
-      , allow_negative_sign_placeholder: false
-      , thousands_separator: ','
-      , decimal_separator: '.'
-      , allow_space_after_digits: false
-    };
-
-    validator.isCurrency = function (str, options) {
-        options = merge(options, default_currency_options);
-
-        return currencyRegex(options).test(str);
-    };
-
-    validator.isJSON = function (str) {
-        try {
-            var obj = JSON.parse(str);
-            return !!obj && typeof obj === 'object';
-        } catch (e) {}
-        return false;
-    };
-
-    validator.isMultibyte = function (str) {
-        return multibyte.test(str);
-    };
-
-    validator.isAscii = function (str) {
-        return ascii.test(str);
-    };
-
-    validator.isFullWidth = function (str) {
-        return fullWidth.test(str);
-    };
-
-    validator.isHalfWidth = function (str) {
-        return halfWidth.test(str);
-    };
-
-    validator.isVariableWidth = function (str) {
-        return fullWidth.test(str) && halfWidth.test(str);
-    };
-
-    validator.isSurrogatePair = function (str) {
-        return surrogatePair.test(str);
-    };
-
-    validator.isBase64 = function (str) {
-        return base64.test(str);
-    };
-
-    validator.isMongoId = function (str) {
-        return validator.isHexadecimal(str) && str.length === 24;
-    };
-
-    validator.ltrim = function (str, chars) {
-        var pattern = chars ? new RegExp('^[' + chars + ']+', 'g') : /^\s+/g;
-        return str.replace(pattern, '');
-    };
-
-    validator.rtrim = function (str, chars) {
-        var pattern = chars ? new RegExp('[' + chars + ']+$', 'g') : /\s+$/g;
-        return str.replace(pattern, '');
-    };
-
-    validator.trim = function (str, chars) {
-        var pattern = chars ? new RegExp('^[' + chars + ']+|[' + chars + ']+$', 'g') : /^\s+|\s+$/g;
-        return str.replace(pattern, '');
-    };
-
-    validator.escape = function (str) {
-        return (str.replace(/&/g, '&amp;')
-            .replace(/"/g, '&quot;')
-            .replace(/'/g, '&#x27;')
-            .replace(/</g, '&lt;')
-            .replace(/>/g, '&gt;')
-            .replace(/\//g, '&#x2F;')
-            .replace(/\`/g, '&#96;'));
-    };
-
-    validator.stripLow = function (str, keep_new_lines) {
-        var chars = keep_new_lines ? '\\x00-\\x09\\x0B\\x0C\\x0E-\\x1F\\x7F' : '\\x00-\\x1F\\x7F';
-        return validator.blacklist(str, chars);
-    };
-
-    validator.whitelist = function (str, chars) {
-        return str.replace(new RegExp('[^' + chars + ']+', 'g'), '');
-    };
-
-    validator.blacklist = function (str, chars) {
-        return str.replace(new RegExp('[' + chars + ']+', 'g'), '');
-    };
-
-    var default_normalize_email_options = {
-        lowercase: true
-    };
-
-    validator.normalizeEmail = function (email, options) {
-        options = merge(options, default_normalize_email_options);
-        if (!validator.isEmail(email)) {
-            return false;
-        }
-        var parts = email.split('@', 2);
-        parts[1] = parts[1].toLowerCase();
-        if (parts[1] === 'gmail.com' || parts[1] === 'googlemail.com') {
-            parts[0] = parts[0].toLowerCase().replace(/\./g, '');
-            if (parts[0][0] === '+') {
-                return false;
-            }
-            parts[0] = parts[0].split('+')[0];
-            parts[1] = 'gmail.com';
-        } else if (options.lowercase) {
-            parts[0] = parts[0].toLowerCase();
-        }
-        return parts.join('@');
-    };
-
-    function merge(obj, defaults) {
-        obj = obj || {};
-        for (var key in defaults) {
-            if (typeof obj[key] === 'undefined') {
-                obj[key] = defaults[key];
-            }
-        }
-        return obj;
-    }
-
-    function currencyRegex(options) {
-        var symbol = '(\\' + options.symbol.replace(/\./g, '\\.') + ')' + (options.require_symbol ? '' : '?')
-            , negative = '-?'
-            , whole_dollar_amount_without_sep = '[1-9]\\d*'
-            , whole_dollar_amount_with_sep = '[1-9]\\d{0,2}(\\' + options.thousands_separator + '\\d{3})*'
-            , valid_whole_dollar_amounts = ['0', whole_dollar_amount_without_sep, whole_dollar_amount_with_sep]
-            , whole_dollar_amount = '(' + valid_whole_dollar_amounts.join('|') + ')?'
-            , decimal_amount = '(\\' + options.decimal_separator + '\\d{2})?';
-        var pattern = whole_dollar_amount + decimal_amount;
-        // default is negative sign before symbol, but there are two other options (besides parens)
-        if (options.allow_negatives && !options.parens_for_negatives) {
-            if (options.negative_sign_after_digits) {
-                pattern += negative;
-            }
-            else if (options.negative_sign_before_digits) {
-                pattern = negative + pattern;
-            }
-        }
-        // South African Rand, for example, uses R 123 (space) and R-123 (no space)
-        if (options.allow_negative_sign_placeholder) {
-            pattern = '( (?!\\-))?' + pattern;
-        }
-        else if (options.allow_space_after_symbol) {
-            pattern = ' ?' + pattern;
-        }
-        else if (options.allow_space_after_digits) {
-            pattern += '( (?!$))?';
-        }
-        if (options.symbol_after_digits) {
-            pattern += symbol;
-        } else {
-            pattern = symbol + pattern;
-        }
-        if (options.allow_negatives) {
-            if (options.parens_for_negatives) {
-                pattern = '(\\(' + pattern + '\\)|' + pattern + ')';
-            }
-            else if (!(options.negative_sign_before_digits || options.negative_sign_after_digits)) {
-                pattern = negative + pattern;
-            }
-        }
-        return new RegExp(
-            '^' +
-            // ensure there's a dollar and/or decimal amount, and that it doesn't start with a space or a negative sign followed by a space
-            '(?!-? )(?=.*\\d)' +
-            pattern +
-            '$'
-        );
-    }
-
-    validator.init();
-
-    return validator;
-
-});
-
-},{}]},{},["./app.js"]);
+},{"/Users/jaredsmith/Sites/github/mullins-website/node_modules/jQuery/dist/jquery.js":"/Users/jaredsmith/Sites/github/mullins-website/node_modules/jQuery/dist/jquery.js"}]},{},["./app.js"]);
