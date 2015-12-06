@@ -73,7 +73,7 @@ var Menu = (function($, _) {
                         var menuItem = $('a[href="#' + $(this).attr('id') + '"]').parent();
                         if(o <= 0) {
 
-                            $('.product-name', this).css({'position': 'fixed', 'top': menuTop, 'left': left, 'background': 'white', 'width' : $(this).outerWidth(true), 'padding': '2rem'});
+                            $('.product-name', this).css({'position': 'fixed', 'top': menuTop, 'left': left, 'background': 'white', 'width' : ($(this).outerWidth(true) - 1), 'padding': '2rem'});
                             $('.product-description', this).css('margin-top', $('.product-name', this).outerHeight());
                             if(!menuItem.hasClass('is-active')) {
                                 self.setToActive(menuItem);
