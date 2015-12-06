@@ -10,7 +10,7 @@
 
 <?php
 
-$menu = '<div class="main-menu"><ul class="menu-list"><li class="after"></li><li class="menu-item label">Products</li>';
+$menu = '<div class="main-menu"><ul class="menu-list"><li class="after"><div class="inner"></div></li><li class="menu-item label">Products</li>';
 
 
 require('bigcartel.class.php');
@@ -48,9 +48,11 @@ require('functions.php');
 			$menu .= '<li class="menu-item"><a href="#'.toCamelCase($name).'">'.$name.'</a></li>';
 			$html .= '<section class="product" id="'.toCamelCase($name).'">';
 			$html .= '<h3 class="product-name">'.$name.'</h3>';
-			$html .= '<p class="product-description">'.$product->description.'</p>';
-			$html .= '<img src="'.$product->images[0]->url.'" />';
-			$html .= '<a href="'.$storeInfo->url.''.$product->url.'">Purchase now ($'.$product->default_price.')</a>';
+			$html .= '<p class="product-description">'.utf8_decode($product->description).'</p>';
+			foreach($product->images as $image) {
+				$html .= '<img src="'.$image->url.'" />';
+			}
+			$html .= '<a target="_blank" href="'.$storeInfo->url.''.$product->url.'">Purchase ($'.$product->default_price.')</a>';
 			$html .= '</section>';
 		}
 	}

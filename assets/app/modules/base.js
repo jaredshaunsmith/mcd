@@ -20,6 +20,8 @@ base = (function($, _ , Intercom) {
         mcd.options.uAgent = navigator.userAgent;
         mcd.options.interaction = mcd.options.uAgent.match(/(iPad|iPhone|iPod)/g) ? 'touchstart' : 'click';
 
+        window.$ = $;
+
         init.call(this);
     };
 

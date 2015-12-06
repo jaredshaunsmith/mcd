@@ -22,7 +22,11 @@ var Menu = (function($, _) {
         setup: function() {
              $('.menu-item a').each(function(i) {
                 $(this).attr('data-top', $($(this).attr('href')).position().top + $(window).outerHeight());
-            })
+            });
+
+             $('.product').each(function() {
+
+             })
         },
 
         bind : function() {
@@ -52,13 +56,16 @@ var Menu = (function($, _) {
             var self = this;
             var s = $('.scroller'),
                 menuTop = $('.main-menu').offset().top,
+                oH = s.outerHeight(true) - menuTop,
                 top = $(window).outerHeight(true) - menuTop,
                 left = $('.product').offset().left,
-                w, o, e;
+                length = $('.product').length,
+                w, o, e, divider;
 
             $('.scroller').on('scroll', function() {
                 w = s.scrollTop();
                 e = $('.content').offset().top - menuTop;
+                divider = e / length;
 
                 if(e <= 0) {
                     $('.product').each(function() {
@@ -71,13 +78,14 @@ var Menu = (function($, _) {
                             if(!menuItem.hasClass('is-active')) {
                                 self.setToActive(menuItem);
                             }
+                            $('.menu-list .after .inner').css('height', (Math.abs(o) / $(this).outerHeight(true)) * 100 + '%');
                         } else {
                             $('.product-name', this).css({'position': 'relative', 'top': 'auto', 'left': 'auto', 'width':'auto','padding':'0px'});
                             $('.product-description', this).css('margin-top', 'auto');
                         }
                     })
                 } else {
-                    $('.menu-list .after').css('opacity', 0);
+                    $('.menu-list .after').css({'opacity': 0, 'height': 0});
                     self.setToActive(false);
                     $('.product-name', $('.product').first()).css({'position': 'relative', 'top': 'auto', 'left': 'auto', 'width':'auto','padding':'0px'});
                     $('.product-description', $('.product').first()).css('margin-top', 'auto');
@@ -86,9 +94,6 @@ var Menu = (function($, _) {
         },
 
         setToActive : function(which) {
-            // if(which == false) {
-            //     $('.menu-list .after').fadeOut();
-            // }
             $('.menu-item').each(function() {
                 $(this).removeClass('is-active');
 
@@ -96,9 +101,6 @@ var Menu = (function($, _) {
             if(which != false) {
                 which.addClass('is-active');
                 $('.menu-list .after').css({'top': which.position().top, 'opacity': '1', 'height': which.height()});
-                // setTimeout(function() {
-                //     $('.menu-list .after').css({});
-                // }, 500)
             }
         }
 

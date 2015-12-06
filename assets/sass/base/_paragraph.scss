@@ -1,12 +1,12 @@
 .paragraph, body {
 	@extend .f-reg;
 
-	font-size: 3rem;
-	line-height: 4rem;
+	font-size: 1.9rem;
+	line-height: 2.1rem;
 
 	@include tablet() {
-		font-size: 3.2rem;
-		line-height: 4.2rem;
+		font-size: 2.2rem;
+		line-height: 2.5rem;
 	}
 }
 
