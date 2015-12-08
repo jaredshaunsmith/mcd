@@ -47,12 +47,11 @@ require('functions.php');
 		} else {
 			$menu .= '<li class="menu-item"><a href="#'.toCamelCase($name).'">'.$name.'</a></li>';
 			$html .= '<section class="product" id="'.toCamelCase($name).'">';
-			$html .= '<h3 class="product-name">'.$name.'</h3>';
+			$html .= '<h3 class="product-name">'.$name.'<a class="purchase-link" target="_blank" href="'.$storeInfo->url.''.$product->url.'">$'.$product->default_price.' <i class="fa fa-shopping-cart"></i></a></h3>';
 			$html .= '<p class="product-description">'.utf8_decode($product->description).'</p>';
 			foreach($product->images as $image) {
 				$html .= '<img src="'.$image->url.'" />';
 			}
-			$html .= '<a target="_blank" href="'.$storeInfo->url.''.$product->url.'">Purchase ($'.$product->default_price.')</a>';
 			$html .= '</section>';
 		}
 	}

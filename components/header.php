@@ -19,6 +19,8 @@
 	<script>try{Typekit.load({ async: true });}catch(e){}</script>
 
 	<link rel="stylesheet" type="text/css" href="<?php echo $baseUrl ?>/assets/style/style.css" />
+
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
 </head>
 <body>
 <div class="logo"><img src="<?php echo $baseUrl; ?>/assets/images/logo.png"></div>

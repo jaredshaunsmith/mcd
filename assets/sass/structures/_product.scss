@@ -15,8 +15,38 @@
   	font-size: 2.6rem;
     font-weight: 900;
     line-height: 2.2rem;
+    padding-top: 2rem;
+    overflow: hidden;
+    max-width: 80%;
+
+    &.is-fixed {
+    	.purchase-link {
+    		opacity: 1; 
+    		top: 0px;
+    	}
+    }
   }
   .product-description {
   	margin-bottom: 2rem;
+  }
+
+  .purchase-link {
+  	opacity: 0;
+    padding: 1rem;
+    background: adjust-hue($yellow, 90deg);
+    color: black;
+    font-weight: 900;
+    position: absolute;
+    right: 0;
+    top: -40px;
+    bottom: 0;
+    text-align: center;
+    line-height: 4.1rem;
+    transition: (background, top) 0.4s ease;
+    transition-property: background, top;
+
+    &:hover {
+    	background: lighten(adjust-hue($yellow, 90deg), 5%);
+    }
   }
 }
