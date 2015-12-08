@@ -2,7 +2,7 @@
 	if( strpos($_SERVER['HTTP_HOST'], '.dev') !== false) {
 		$baseUrl = 'http://localhost:4200';
 	} else {
-		$baseUrl = 'http://mullinschaindrive.com';
+		$baseUrl = 'http://mullinschaindrive.com/staging';
 	}
 ?>
 
@@ -10,7 +10,7 @@
 
 <?php
 
-$menu = '<div class="main-menu"><div class="menu-toggle"><i class="fa fa-bars"></i></div><ul class="menu-list"><li class="after"><div class="inner"></div></li><li class="menu-item label">Products</li>';
+$menu = '<div class="main-menu"><div class="menu-toggle" style="line-height:29rem;"><i class="fa fa-bars"></i></div><ul class="menu-list"><li class="after"><div class="inner"></div></li><li class="menu-item label">Products</li>';
 
 
 require('bigcartel.class.php');

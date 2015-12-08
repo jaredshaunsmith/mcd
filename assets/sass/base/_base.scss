@@ -58,6 +58,8 @@ body {
         overflow: scroll;
         margin-top: 10vh;
         &::-webkit-scrollbar { width: 0 !important }
+
+        -webkit-overflow-scrolling: touch;
     }
 }
 
