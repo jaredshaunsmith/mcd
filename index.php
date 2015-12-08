@@ -10,7 +10,7 @@
 
 <?php
 
-$menu = '<div class="main-menu"><ul class="menu-list"><li class="after"><div class="inner"></div></li><li class="menu-item label">Products</li>';
+$menu = '<div class="main-menu"><div class="menu-toggle"><i class="fa fa-bars"></i></div><ul class="menu-list"><li class="after"><div class="inner"></div></li><li class="menu-item label">Products</li>';
 
 
 require('bigcartel.class.php');
@@ -58,7 +58,9 @@ require('functions.php');
 
 	$html .='</section>';
 
-	$menu .= '</ul></div>';
+	$menu .= '</ul>';
+	$menu .= '<span class="contact-info">Mullins Chain Drive<br/>401 1st Street #155</br>Richmond, California 94801</br></br><a href="mailto:mullinschaindrive@gmail.com">mullinschaindrive@gmail.com</a></span>';
+	$menu .= '</div>';
 
 	echo $menu;
 	echo $html;

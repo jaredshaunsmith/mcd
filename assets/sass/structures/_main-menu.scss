@@ -6,6 +6,41 @@
 	color: white;
 	z-index: 1;
 
+	.menu-toggle {
+		display: none;
+		color: rgba(0,0,0,0.7);
+    font-size: 8rem;
+    left: 100%;
+    position: absolute;
+    margin-left: 2vw;
+	}
+
+	@include phone-l() {
+		width: 80vw;
+		left: -80vw;
+		top: 3vh;
+
+		.menu-list .after {
+			display: none;
+		}
+
+		.menu-toggle {
+			display: block;
+		}
+		.menu-list {
+			margin-top: 5vh;
+		}
+
+		&.is-active {
+			left: 0;
+
+			.menu-toggle {
+				left: 2vw;
+				margin-left: 0;
+			}
+		}
+	}
+
 	.menu-list {
 		// transform: scale(0.9);
     left: 0px;
@@ -67,6 +102,10 @@
 		    transition: all 0.1s ease;
 	    	color: white;
 	    	transition: all 0.2s ease;
+
+	    	@include phone-l() {
+	    		padding-left: 2vw;
+	    	}
 	    }
 	    &:hover, &.is-active {
 	    	a {
@@ -76,6 +115,13 @@
 	    }
 		}
 	}
+}
+
+.contact-info {
+	  padding: 2rem;
+    display: block;
+    background: rgba(255,255,255,0.8);
+    color: black;
 }
 
 .logo {
@@ -88,5 +134,14 @@
 		img {
 			height: 100%;
 			width: auto
+		}
+
+		@include phone-l() {
+			position: absolute;
+	    right: 2vw;
+	    opacity: 0.4;
+	    height: 6vh;
+	    top: 2.65vh;
+	    padding-bottom: 2rem;
 		}
 	}

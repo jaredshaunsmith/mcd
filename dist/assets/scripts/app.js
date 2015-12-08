@@ -211,6 +211,26 @@ var Menu = (function($, _) {
 
             });
             this.sticks();
+
+            $('.menu-toggle').on('click', function() {
+                self.toggle();
+            });
+
+            if(mcd.isMobile) {
+                $('.menu-item a').each(function() {
+                    $(this).on('click', function() {
+                        self.toggle();
+                    });
+                });
+            }
+
+            mcd.intercom.listen('mobile', function() {
+                 $('.menu-item a').each(function() {
+                    $(this).on('click', function() {
+                        self.toggle();
+                    });
+                });
+            })
             
         },
         scrollMe : function(where) {
@@ -227,6 +247,10 @@ var Menu = (function($, _) {
                 length = $('.product').length,
                 w, o, e, divider;
 
+            if(mcd.isMobile) {
+                menuTop = $(window).outerHeight(true) / 10;
+            }
+
             $('.scroller').on('scroll', function() {
                 w = s.scrollTop();
                 e = $('.content').offset().top - menuTop;
@@ -238,21 +262,21 @@ var Menu = (function($, _) {
                         var menuItem = $('a[href="#' + $(this).attr('id') + '"]').parent();
                         if(o <= 0) {
 
-                            $('.product-name', this).css({'position': 'fixed', 'top': menuTop, 'left': left, 'background': 'white', 'width' : ($(this).outerWidth(true) - 1), 'padding': '2rem'});
+                            $('.product-name', this).addClass('is-fixed').css({'position': 'fixed', 'top': menuTop, 'left': left, 'background': 'white', 'width' : ($(this).outerWidth(true)), 'padding': '2rem'});
                             $('.product-description', this).css('margin-top', $('.product-name', this).outerHeight());
                             if(!menuItem.hasClass('is-active')) {
                                 self.setToActive(menuItem);
                             }
                             $('.menu-list .after .inner').css('height', (Math.abs(o) / $(this).outerHeight(true)) * 100 + '%');
                         } else {
-                            $('.product-name', this).css({'position': 'relative', 'top': 'auto', 'left': 'auto', 'width':'auto','padding':'0px'});
+                            $('.product-name', this).removeClass('is-fixed').css({'position': 'relative', 'top': 'auto', 'left': 'auto', 'width':'auto','padding':'0px'});
                             $('.product-description', this).css('margin-top', 'auto');
                         }
                     })
                 } else {
                     $('.menu-list .after').css({'opacity': 0, 'height': 0});
                     self.setToActive(false);
-                    $('.product-name', $('.product').first()).css({'position': 'relative', 'top': 'auto', 'left': 'auto', 'width':'auto','padding':'0px'});
+                    $('.product-name', $('.product').first()).removeClass('is-fixed').css({'position': 'relative', 'top': 'auto', 'left': 'auto', 'width':'auto','padding':'0px'});
                     $('.product-description', $('.product').first()).css('margin-top', 'auto');
                 }
             });
@@ -267,6 +291,10 @@ var Menu = (function($, _) {
                 which.addClass('is-active');
                 $('.menu-list .after').css({'top': which.position().top, 'opacity': '1', 'height': which.height()});
             }
+        },
+
+        toggle: function() {
+            $('.main-menu').toggleClass('is-active');
         }
 
     };

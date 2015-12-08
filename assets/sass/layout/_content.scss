@@ -3,4 +3,11 @@
     margin-top: 100vh;
     position: relative;
     margin-left: .38rem;
+
+    @include phone-l() {
+    	left: 0;
+	    width: 100vw;
+	    padding: 2vw;
+	    margin-left: 0px;
+    }
 }

@@ -46,6 +46,26 @@ var Menu = (function($, _) {
 
             });
             this.sticks();
+
+            $('.menu-toggle').on('click', function() {
+                self.toggle();
+            });
+
+            if(mcd.isMobile) {
+                $('.menu-item a').each(function() {
+                    $(this).on('click', function() {
+                        self.toggle();
+                    });
+                });
+            }
+
+            mcd.intercom.listen('mobile', function() {
+                 $('.menu-item a').each(function() {
+                    $(this).on('click', function() {
+                        self.toggle();
+                    });
+                });
+            })
             
         },
         scrollMe : function(where) {
@@ -61,6 +81,10 @@ var Menu = (function($, _) {
                 left = $('.product').offset().left,
                 length = $('.product').length,
                 w, o, e, divider;
+
+            if(mcd.isMobile) {
+                menuTop = $(window).outerHeight(true) / 10;
+            }
 
             $('.scroller').on('scroll', function() {
                 w = s.scrollTop();
@@ -102,6 +126,10 @@ var Menu = (function($, _) {
                 which.addClass('is-active');
                 $('.menu-list .after').css({'top': which.position().top, 'opacity': '1', 'height': which.height()});
             }
+        },
+
+        toggle: function() {
+            $('.main-menu').toggleClass('is-active');
         }
 
     };

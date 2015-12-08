@@ -4,6 +4,10 @@
   width: 65vw;
   margin-bottom: 0.25rem;
 
+  @include phone-l() {
+  	width: 100%;
+  }
+
   img {
   	width: 100%;
   	margin-bottom: 2rem;
@@ -19,11 +23,16 @@
     overflow: hidden;
     max-width: 80%;
 
+
+
     &.is-fixed {
     	.purchase-link {
     		opacity: 1; 
     		top: 0px;
     	}
+    	@include phone-l() {
+	    	max-width: 100%;
+	    }
     }
   }
   .product-description {
