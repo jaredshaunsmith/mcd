@@ -234,7 +234,11 @@ var Menu = (function($, _) {
             
         },
         scrollMe : function(where) {
-            $('.scroller').animate({'scrollTop' : where }, 300);
+            // if(!mcd.isMobile) {
+                $('.scroller').animate({'scrollTop' : where }, 300);
+            // } else {
+                // $('.scroller').animate({'scrollTop' : where + 160}, 300);
+            // }
         },
 
         sticks : function() {
@@ -248,7 +252,7 @@ var Menu = (function($, _) {
                 w, o, e, divider;
 
             if(mcd.isMobile) {
-                menuTop = $(window).outerHeight(true) / 10;
+                menuTop = s.offset().top;
             }
 
             $('.scroller').on('scroll', function() {
