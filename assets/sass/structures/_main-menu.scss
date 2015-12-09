@@ -28,7 +28,12 @@
 			display: block;
 		}
 		.menu-list {
-			margin-top: 5vh;
+			margin-top: 5.5vh;
+			background: black;
+
+			.menu-item {
+				border-bottom: 1px solid $yellow;
+			}
 		}
 
 		&.is-active {
