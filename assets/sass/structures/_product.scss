@@ -42,8 +42,8 @@
   .purchase-link {
   	opacity: 0;
     padding: 1rem;
-    background: adjust-hue($yellow, 90deg);
-    color: black;
+    background: black;
+    color: white;
     font-weight: 900;
     position: absolute;
     right: 0;
@@ -55,7 +55,7 @@
     transition-property: background, top;
 
     &:hover {
-    	background: lighten(adjust-hue($yellow, 90deg), 5%);
+    	background: lighten(black, 5%);
     }
   }
 }
