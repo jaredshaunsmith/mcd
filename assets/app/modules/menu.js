@@ -72,7 +72,7 @@ var Menu = (function($, _) {
             // if(!mcd.isMobile) {
                 $('.scroller').animate({'scrollTop' : where }, 300);
             // } else {
-                // $('.scroller').animate({'scrollTop' : where + 160}, 300);
+            //     $('.scroller').animate({'scrollTop' : where - ($(window).outerHeight() - $('.scroller').offset().top)}, 300);
             // }
         },
 
@@ -87,7 +87,7 @@ var Menu = (function($, _) {
                 w, o, e, divider;
 
             if(mcd.isMobile) {
-                menuTop = s.offset().top;
+                menuTop = s.offset().top - 2;
             }
 
             $('.scroller').on('scroll', function() {
