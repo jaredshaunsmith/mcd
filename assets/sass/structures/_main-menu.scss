@@ -92,7 +92,6 @@
 			&.label {
 				background: $yellow !important;
 				color: black !important;
-				margin-top: 0px !important;
 			}
 	    a, &.label {
 	    	background: black;
@@ -123,11 +122,33 @@
 }
 
 .contact-info {
+	margin-top: 4rem;
 	  padding: 2rem;
     display: block;
-    background: rgba(255,255,255,0.8);
-    color: black;
+    background: black;
+    color: white;
+    font-weight: 900;
     word-break: break-word;
+    a {
+    	color: $yellow;
+    	font-size: 1.6rem;
+    }
+}
+
+.social {
+	padding: 2rem;
+	margin-top: 1.5rem;
+	// background: black;
+
+	a {
+		color: black;
+		display: inline-block;
+		margin-left: 1.5rem;
+		&:first-child {
+			margin-left: 0px;
+		}
+	}
+	font-size: 4rem;
 }
 
 .logo {
